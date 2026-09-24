@@ -1,26 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const {
-  getProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct
+  getProducts, getProductById, createProduct, updateProduct, deleteProduct
 } = require('../controllers/productController');
+const { protect, adminOnly } = require('../middlewares/authMiddleware');
 
-// [GET] /api/products - Lấy danh sách sản phẩm (có Lọc, Tìm kiếm, Sắp xếp)
+// Công khai cho mọi người xem
 router.get('/', getProducts);
-
-// [GET] /api/products/:id - Lấy chi tiết 1 sản phẩm
 router.get('/:id', getProductById);
 
-// [POST] /api/products - Thêm sản phẩm mới
-router.post('/', createProduct);
-
-// [PUT] /api/products/:id - Cập nhật thông tin sản phẩm
-router.put('/:id', updateProduct);
-
-// [DELETE] /api/products/:id - Xóa sản phẩm theo ID
-router.delete('/:id', deleteProduct);
+// Bắt buộc đăng nhập với quyền Admin mới được Thêm/Sửa/Xóa
+router.post('/', protect, adminOnly, createProduct);
+router.put('/:id', protect, adminOnly, updateProduct);
+router.delete('/:id', protect, adminOnly, deleteProduct);
 
 module.exports = router;
