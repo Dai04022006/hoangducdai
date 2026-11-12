@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVAPHONE — Hệ Thống Flagship & Smartphone Chính Hãng</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-notice-bar">
+    🔥 <span>SIÊU ĐẠI HỘI SMARTPHONE 2026:</span> Ưu đãi đến 40% cho iPhone 16 Series, Galaxy S24 Ultra & Flagship thế hệ mới — Trả góp 0%, 1 đổi 1 30 ngày!
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-logo-icon">📱</div>
+        <span>NOVAPHONE</span>
+        <span class="brand-badge">PRO</span>
+      </a>
+
+      <!-- Quick Search Bar -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm điện thoại... (iPhone 16 Pro Max, Galaxy S24, Xiaomi 14...)">
+      </div>
+
+      <!-- Action Area: User Profile, Cart & Admin Portal -->
+      <div class="header-actions">
+        <div id="userAuthArea" class="user-auth-area"></div>
+
+        <button class="btn-cart-toggle" onclick="openCartDrawer()">
+          <span>🛒 Giỏ hàng</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+
+        <a href="admin.html" id="adminPortalLink" class="btn-admin-link hidden">
+          ⚙️ Quản Trị
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Brand Filter Pill Bar & Dropdown -->
+  <nav class="category-nav-bar">
+    <div class="container cat-nav-inner">
+      <div class="mega-menu-trigger" id="megaMenuTrigger">
+        <span>☰</span> BỘ SƯU TẬP HÃNG ▾
+      </div>
+
+      <div class="sub-nav-links">
+        <a href="category.html?slug=iphone">🍎 Apple (iPhone)</a>
+        <a href="category.html?slug=samsung">✨ Samsung Galaxy</a>
+        <a href="category.html?slug=xiaomi">⚡ Xiaomi & Redmi</a>
+        <a href="category.html?slug=oppo">📸 OPPO Reno & Find</a>
+        <a href="category.html?slug=vivo">🎵 Vivo ZEISS</a>
+        <a href="category.html?slug=realme">🚀 Realme GT</a>
+        <a href="#flashSaleSection" style="color:var(--primary); font-weight:800;">🔥 Flash Sale</a>
+      </div>
+
+      <!-- Mega Dropdown Panel -->
+      <div class="mega-dropdown-wrapper hidden" id="megaDropdown">
+        <div class="mega-cat-list" id="megaCatList"></div>
+        <div class="mega-cat-panel" id="megaCatPanel"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Brand Quick Icons Grid -->
+    <section class="quick-icons-section">
+      <div class="quick-icons-grid" id="quickIconsGrid">
+        <!-- Render 6 thương hiệu điện thoại qua JS -->
+      </div>
+    </section>
+
+    <!-- Search Results Flyout (nếu gõ tìm kiếm) -->
+    <div id="searchResultsArea" class="hidden" style="margin-bottom: 30px;">
+      <div style="background: #fff; padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--dark);">Kết Quả Tìm Kiếm Smartphone</h3>
+          <button class="btn-close" onclick="closeSearchArea()">✕</button>
+        </div>
+        <div class="grid-5-cols" id="searchGrid"></div>
+      </div>
+    </div>
+
+    <!-- Hero Showcase Banner -->
+    <section class="tech-banner-widget">
+      <div class="tech-banner-grid">
+        <div class="tech-banner-text">
+          <span class="tech-banner-badge">KỶ NGUYÊN SMARTPHONE AI 2026</span>
+          <h2 class="tech-banner-title">
+            Trải Nghiệm Đỉnh Cao: <span>Apple Intelligence</span> ⬝ <span>Galaxy AI</span> ⬝ <span>Ống Kính Leica</span>
+          </h2>
+          <p class="tech-banner-desc">
+            Khám phá các dòng điện thoại thông minh vi xử lý 3nm tân tiến, màn hình AMOLED 120Hz mượt mà và camera chuẩn điện ảnh. Cam kết 100% hàng chính hãng VN/A, bảo hành vàng 1 đổi 1.
+          </p>
+          <button class="btn-buy-now" onclick="document.getElementById('flashSaleSection').scrollIntoView({behavior:'smooth'})">
+            Khám Phá Ưu Đãi Ngay →
+          </button>
+        </div>
+
+        <div class="tech-banner-visual">
+          <div class="tech-badge-card">
+            <div style="font-size:32px; margin-bottom:8px;">📱</div>
+            <div style="font-weight:700; font-size:14px;">Apple iPhone</div>
+            <div style="font-size:12px; color:#94a3b8; margin-top:2px;">A18 Pro Titanium</div>
+          </div>
+          <div class="tech-badge-card">
+            <div style="font-size:32px; margin-bottom:8px;">✨</div>
+            <div style="font-weight:700; font-size:14px;">Samsung Galaxy</div>
+            <div style="font-size:12px; color:#94a3b8; margin-top:2px;">S24 Ultra & Fold6</div>
+          </div>
+          <div class="tech-badge-card">
+            <div style="font-size:32px; margin-bottom:8px;">📸</div>
+            <div style="font-weight:700; font-size:14px;">Xiaomi & OPPO</div>
+            <div style="font-size:12px; color:#94a3b8; margin-top:2px;">Leica & Hasselblad</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: FLASH SALE GIỜ VÀNG (Auto slide 3s) -->
+    <section id="flashSaleSection" style="margin-bottom: 45px;">
+      <div class="section-header-box">
+        <div class="section-title-wrap">
+          <span class="section-badge" style="background:var(--danger-light); color:var(--danger);">⚡</span>
+          <div>
+            <h2 class="section-main-title">FLASH SALE GIÁ SỐC HÔM NAY</h2>
+          </div>
+        </div>
+        <span style="font-size:12.5px; font-weight:700; color:var(--text-muted);">Tự động cập nhật mỗi 3s</span>
+      </div>
+
+      <div class="slider-container-rel">
+        <button class="slider-arrow prev" onclick="slideSale('prev')" title="Trước">‹</button>
+        <button class="slider-arrow next" onclick="slideSale('next')" title="Sau">›</button>
+        <div class="slider-track" id="saleSliderTrack">
+          <!-- Render danh sách Flash Sale -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SMARTPHONE NỔI BẬT & BÁN CHẠY NHẤT -->
+    <section style="margin-bottom: 45px;">
+      <div class="section-header-box">
+        <div class="section-title-wrap">
+          <span class="section-badge" style="background:#fef3c7; color:#d97706;">★</span>
+          <div>
+            <h2 class="section-main-title">SMARTPHONE NỔI BẬT ĐƯỢC ĐÁNH GIÁ CAO</h2>
+          </div>
+        </div>
+        <a href="category.html?slug=iphone" style="font-size:13px; font-weight:700; color:var(--primary); text-decoration:none;">Xem tất cả →</a>
+      </div>
+
+      <div class="slider-container-rel">
+        <button class="slider-arrow prev" onclick="slideFeatured('prev')" title="Trước">‹</button>
+        <button class="slider-arrow next" onclick="slideFeatured('next')" title="Sau">›</button>
+        <div class="slider-track" id="featuredSliderTrack">
+          <!-- Render smartphone nổi bật -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 & 4: POPULAR PHONE CATEGORIES -->
+    <div id="popularSectionsWrap" class="popular-sections-wrap">
+      <!-- GIAN 1: APPLE IPHONE CHÍNH HÃNG -->
+      <section style="background:#fff; border:1px solid var(--border); border-radius:var(--radius-xl); padding:24px; margin-bottom:32px; box-shadow:var(--shadow-xs);">
+        <div class="section-header-box" style="border-bottom:1px solid var(--border-light); padding-bottom:16px;">
+          <div class="section-title-wrap">
+            <span class="section-badge" style="background:var(--primary-light); color:var(--primary);">🍎</span>
+            <div>
+              <h3 class="section-main-title">HỆ SINH THÁI APPLE IPHONE CHÍNH HÃNG VN/A</h3>
+            </div>
+          </div>
+          <a href="category.html?slug=iphone" style="font-size:13px; font-weight:700; color:var(--primary); text-decoration:none;">Xem tất cả iPhone →</a>
+        </div>
+        <div class="grid-5-cols" id="popularVgaGrid">
+          <!-- Render danh sách iPhone -->
+        </div>
+      </section>
+
+      <!-- GIAN 2: SAMSUNG GALAXY AI & MÀN HÌNH GẬP -->
+      <section style="background:#fff; border:1px solid var(--border); border-radius:var(--radius-xl); padding:24px; margin-bottom:32px; box-shadow:var(--shadow-xs);">
+        <div class="section-header-box" style="border-bottom:1px solid var(--border-light); padding-bottom:16px;">
+          <div class="section-title-wrap">
+            <span class="section-badge" style="background:#f3e8ff; color:#7e22ce;">✨</span>
+            <div>
+              <h3 class="section-main-title">SAMSUNG GALAXY AI & ĐỘT PHÁ MÀN HÌNH GẬP</h3>
+            </div>
+          </div>
+          <a href="category.html?slug=samsung" style="font-size:13px; font-weight:700; color:var(--primary); text-decoration:none;">Xem tất cả Samsung →</a>
+        </div>
+        <div class="grid-5-cols" id="popularCpuGrid">
+          <!-- Render danh sách Samsung -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-backdrop" id="cartBackdrop" onclick="closeCartDrawer()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 class="cart-title">🛍️ Giỏ Hàng Của Bạn</h3>
+      <button class="btn-close" onclick="closeCartDrawer()">✕</button>
+    </div>
+    <div class="cart-body" id="cartItemsBody">
+      <!-- Render danh sách giỏ hàng -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Tổng thanh toán:</span>
+        <span id="cartSubtotal" style="color: var(--primary); font-size:19px; font-weight:900;">0 đ</span>
+      </div>
+      <button class="btn-checkout-start" onclick="openCheckoutModal()">
+        Tiến Hành Đặt Hàng →
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Checkout / Đặt Hàng -->
+  <div class="modal-overlay hidden" id="checkoutModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">📦 Thông Tin Giao Hàng & Thanh Toán</h3>
+        <button class="btn-close" onclick="closeCheckoutModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Họ và Tên (*)</label>
+            <input type="text" name="customerName" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" required>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Số Điện Thoại (*)</label>
+              <input type="tel" name="customerPhone" class="form-input" placeholder="09xxxxxxxx" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Email Nhận Hóa Đơn (*)</label>
+              <input type="email" name="customerEmail" class="form-input" placeholder="email@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Địa Chỉ Nhận Máy (*)</label>
+            <input type="text" name="shippingAddress" class="form-input" placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phương Thức Thanh Toán (*)</label>
+            <select name="paymentMethod" class="form-select" required>
+              <option value="VIETQR">🏦 Chuyển khoản Ngân hàng (Quét mã VietQR tự động)</option>
+              <option value="MOMO_QR">📱 Ví Điện Tử MoMo (Quét QR tiện lợi)</option>
+              <option value="COD">💵 Thanh toán tiền mặt khi nhận hàng (COD)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ghi Chú Đơn Hàng (Tùy chọn)</label>
+            <input type="text" name="note" class="form-input" placeholder="Giao giờ hành chính, dán cường lực sẵn...">
+          </div>
+          <button type="submit" id="btnSubmitOrder" class="btn-checkout-start">
+            Xác Nhận Đặt Mua
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thanh Toán QR -->
+  <div class="modal-overlay hidden" id="qrModal">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">⚡ Quét Mã QR Thanh Toán Nhanh</h3>
+        <button class="btn-close" onclick="closeQRModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="qr-preview-box">
+          <img id="qrImage" src="" alt="Mã QR Thanh Toán" class="qr-img">
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Mở ứng dụng Ngân hàng hoặc Ví MoMo để quét</p>
+          <div style="font-size: 14px; margin-bottom: 4px;">Mã đơn hàng: <strong id="qrOrderCode">#...</strong></div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--primary); margin-bottom: 8px;">Số tiền: <span id="qrTotalAmount">0 đ</span></div>
+          <div style="font-size: 12.5px; background: var(--primary-light); color: var(--primary); padding: 8px; border-radius: 8px;" id="qrNoteInfo">
+            Nội dung CK: DH ...
+          </div>
+        </div>
+        <button class="btn-checkout-start" onclick="closeQRModal()">
+          ✓ Tôi Đã Hoàn Tất Chuyển Khoản
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Đăng Nhập / Đăng Ký -->
+  <div class="modal-overlay hidden" id="authModal">
+    <div class="modal-content" style="max-width: 440px;">
+      <div class="modal-header" style="padding-bottom: 0; border-bottom: none;">
+        <div style="display: flex; gap: 8px; width: 100%; border-bottom: 1.5px solid var(--border); padding-bottom: 12px;">
+          <button id="tabAuthLogin" class="btn-auth active" onclick="switchAuthTab('login')" style="flex:1;">Đăng Nhập</button>
+          <button id="tabAuthRegister" class="btn-auth" onclick="switchAuthTab('register')" style="flex:1;">Đăng Ký</button>
+        </div>
+        <button class="btn-close" style="position:absolute; right:18px; top:18px;" onclick="closeAuthModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Email tài khoản (*)</label>
+            <input type="email" name="email" class="form-input" placeholder="admin@novaphone.vn hoặc email của bạn" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu (*)</label>
+            <input type="password" name="password" class="form-input" placeholder="Nhập mật khẩu..." required>
+          </div>
+          <button type="submit" class="btn-checkout-start" style="margin-top: 10px;">
+            Đăng Nhập Hệ Thống
+          </button>
+          <div style="margin-top: 12px; font-size: 12px; color: var(--text-muted); text-align: center;">
+            Tài khoản Admin mẫu: <strong>admin@novaphone.vn</strong> / <strong>AdminPassword123@</strong>
+          </div>
+        </form>
+
+        <form id="registerForm" class="hidden" onsubmit="handleRegisterSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Họ và Tên (*)</label>
+            <input type="text" name="name" class="form-input" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email (*)</label>
+            <input type="email" name="email" class="form-input" placeholder="email@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Số điện thoại (*)</label>
+            <input type="tel" name="phone" class="form-input" placeholder="09xxxxxxxx" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu (*)</label>
+            <input type="password" name="password" class="form-input" placeholder="Mật khẩu tối thiểu 6 ký tự..." required>
+          </div>
+          <button type="submit" class="btn-checkout-start" style="margin-top: 10px;">
+            Đăng Ký Tài Khoản Khách Hàng
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating AI Chatbot Button -->
+  <button class="ai-widget-button" onclick="toggleAIChat()" title="Tư vấn điện thoại cùng Trợ lý AI">
+    🤖
+  </button>
+  <div class="ai-chat-window hidden" id="aiChatWindow">
+    <div class="ai-chat-header">
+      <div class="ai-chat-title">
+        <span>🤖</span>
+        <div>
+          <div>NOVAPHONE AI Assistant</div>
+          <div style="font-size: 11px; font-weight: normal; opacity: 0.85;">Tư vấn smartphone iPhone, Samsung, Xiaomi 24/7</div>
+        </div>
+      </div>
+      <button class="btn-close" style="color: #fff;" onclick="toggleAIChat()">✕</button>
+    </div>
+    <div class="ai-chat-messages" id="aiMessages">
+      <div class="msg msg-ai">
+        Dạ em chào Quý khách! Em là Trợ lý AI tư vấn điện thoại di động chính hãng tại NovaPhone Store. Quý khách đang quan tâm dòng smartphone nào như iPhone 16 Pro Max, Galaxy S24 Ultra hay Xiaomi ạ? 📱✨
+      </div>
+    </div>
+    <form class="ai-chat-input-area" onsubmit="sendAIMessage(event)">
+      <input type="text" id="aiInput" class="ai-chat-input" placeholder="Hỏi AI về iPhone 16 Pro Max, Galaxy S24 Ultra, Xiaomi 14..." autocomplete="off">
+      <button type="submit" class="ai-chat-send">➤</button>
+    </form>
+  </div>
+
+  <!-- Modern Footer -->
+  <footer>
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid #1e293b;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="brand-logo-icon" style="background:#2563eb;">📱</div>
+          <span style="font-size:20px; font-weight:900; color:#fff;">NOVAPHONE</span>
+        </div>
+        <div style="display:flex; gap:24px; font-size:13px;">
+          <a href="category.html?slug=iphone">Apple iPhone</a>
+          <a href="category.html?slug=samsung">Samsung Galaxy</a>
+          <a href="category.html?slug=xiaomi">Xiaomi</a>
+          <a href="category.html?slug=oppo">OPPO</a>
+          <a href="category.html?slug=vivo">Vivo</a>
+          <a href="category.html?slug=realme">Realme</a>
+        </div>
+      </div>
+      <p style="margin-bottom: 8px; font-weight: 700; color: #f1f5f9;">NOVAPHONE STORE — HỆ THỐNG PHÂN PHỐI ĐIỆN THOẠI DI ĐỘNG & SMARTPHONE CHÍNH HÃNG</p>
+      <p style="font-size: 13px; color: #94a3b8; max-width: 800px; margin: 0 auto 10px;">Cam kết 100% sản phẩm chính hãng Apple, Samsung, Xiaomi, OPPO, Vivo, Realme. Bảo hành chính hãng 12-24 tháng, 1 đổi 1 trong 30 ngày. Hỗ trợ trả góp 0%, thanh toán tự động VietQR, MoMo và Trợ lý ảo AI tư vấn 24/7.</p>
+      <p style="font-size: 12px; color: #64748b;">© 2026 NovaPhone Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ai-chat.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initMegaMenu === 'function') {
+        initMegaMenu();
+      }
+    });
+  </script>
+</body>
+</html>

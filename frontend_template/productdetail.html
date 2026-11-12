@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Smartphone — NOVAPHONE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="top-notice-bar">
+    🔥 <span>SIÊU SALE ĐIỆN THOẠI 2026:</span> Giao nhanh 2h toàn quốc — Bảo hành chính hãng 12-24 tháng 1 đổi 1 trong 30 ngày!
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-logo-icon">📱</div>
+        <span>NOVAPHONE</span>
+        <span class="brand-badge">PRO</span>
+      </a>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm điện thoại iPhone, Samsung, Xiaomi...">
+      </div>
+
+      <div class="header-actions">
+        <div id="userAuthArea" class="user-auth-area"></div>
+        <button class="btn-cart-toggle" onclick="openCartDrawer()">
+          <span>🛒 Giỏ hàng</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <a href="admin.html" id="adminPortalLink" class="btn-admin-link hidden">
+          ⚙️ Quản Trị
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="category-nav-bar">
+    <div class="container cat-nav-inner">
+      <div class="mega-menu-trigger" id="megaMenuTrigger">
+        <span>☰</span> BỘ SƯU TẬP HÃNG ▾
+      </div>
+      <div class="sub-nav-links">
+        <a href="category.html?slug=iphone">🍎 IPHONE</a>
+        <a href="category.html?slug=samsung">✨ SAMSUNG</a>
+        <a href="category.html?slug=xiaomi">⚡ XIAOMI</a>
+        <a href="category.html?slug=oppo">📸 OPPO</a>
+        <a href="category.html?slug=vivo">🎵 VIVO</a>
+        <a href="category.html?slug=realme">🚀 REALME</a>
+        <a href="index.html#flashSaleSection" style="color:var(--primary); font-weight:800;">🔥 SALE SỐC</a>
+      </div>
+
+      <div class="mega-dropdown-wrapper hidden" id="megaDropdown">
+        <div class="mega-cat-list" id="megaCatList"></div>
+        <div class="mega-cat-panel" id="megaCatPanel"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="margin-top: 15px;">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a> <span>›</span>
+      <a href="#" id="detailBreadcrumbCategory">Điện thoại</a> <span>›</span>
+      <span id="detailBreadcrumbName" style="color:var(--dark); font-weight:700;">Tên sản phẩm</span>
+    </div>
+
+    <!-- PRODUCT DETAIL MAIN CARD -->
+    <div class="product-detail-layout" id="productDetailMain">
+      <!-- Cột Trái: Thư Viện Hình Ảnh & Mini Specs -->
+      <div class="gallery-col">
+        <div class="gallery-main-view">
+          <img id="detailMainImage" src="" alt="Điện thoại" onerror="this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600'">
+        </div>
+        <div class="gallery-thumbs" id="detailThumbs">
+          <!-- Render danh sách ảnh phụ -->
+        </div>
+
+        <div style="margin-top: 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h4 style="font-size:13.5px; font-weight:800; color:var(--dark); text-transform:uppercase; letter-spacing:0.3px;">
+              ⚡ CẤU HÌNH NỔI BẬT:
+            </h4>
+            <button onclick="openFullSpecsModal()" style="background:none; border:none; color:var(--primary); font-size:12.5px; font-weight:700; cursor:pointer; text-decoration:underline;">
+              Xem toàn bộ thông số kỹ thuật →
+            </button>
+          </div>
+          <div class="specs-table-mini" id="detailQuickSpecs" onclick="openFullSpecsModal()" style="cursor:pointer;" title="Bấm vào để xem bảng thông số kỹ thuật đầy đủ">
+            <!-- Render cấu hình tóm tắt -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột Phải: Thông Tin Mua Hàng & Giá -->
+      <div class="product-info-col">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+          <span class="detail-brand-badge" id="detailBrand">APPLE CHÍNH HÃNG</span>
+          <span style="font-size:12px; background:#f1f5f9; color:var(--text-muted); padding:3px 8px; border-radius:4px; font-weight:600;" id="detailSku">Mã: SP2026</span>
+        </div>
+
+        <h1 class="detail-title" id="detailName">iPhone 16 Pro Max 256GB</h1>
+
+        <div class="detail-rating-row">
+          <span style="color:#10b981; font-weight:700;">✓ Tình trạng: Còn hàng (Sẵn sàng giao)</span>
+          <span>·</span>
+          <span id="detailWarranty">Bảo hành 12 - 24 tháng chính hãng</span>
+        </div>
+
+        <!-- Flash Deal Box -->
+        <div class="flash-deal-box">
+          <div class="flash-deal-text">⚡ FLASH DEAL GIÁ TỐT NHẤT THÁNG</div>
+          <div class="deal-countdown">KẾT THÚC TRONG: 08 : 45 : 12</div>
+        </div>
+
+        <!-- Khung Giá Bán -->
+        <div class="detail-price-box">
+          <div class="detail-sale-price" id="detailSalePrice">0 đ</div>
+          <div class="detail-original-price" id="detailOriginalPrice">0 đ</div>
+          <div class="detail-discount-pill" id="detailDiscount">Tiết kiệm 15%</div>
+        </div>
+
+        <!-- Quà tặng kèm -->
+        <div class="promo-box">
+          <div class="promo-box-title">🎁 ĐẶC QUYỀN KHI MUA SMARTPHONE TẠI NOVAPHONE:</div>
+          <ul style="padding-left:18px; display:flex; flex-direction:column; gap:6px; color:#334155; font-size:13px;">
+            <li>Tặng ngay <strong>Củ sạc nhanh chính hãng & Cáp bọc dù</strong> trị giá 450.000 đ</li>
+            <li>Tặng gói bảo hành rơi vỡ, vào nước VIP 12 tháng</li>
+            <li>Giảm thêm 500.000 đ khi thanh toán quét mã VietQR hoặc Ví MoMo</li>
+            <li>Thu cũ đổi mới (Trade-in) trợ giá lên đời đến 3.000.000 đ</li>
+          </ul>
+        </div>
+
+        <!-- Nút Hành Động Mua Hàng -->
+        <div class="detail-cta-row">
+          <button class="btn-buy-now" id="btnBuyNow" onclick="handleBuyNow()">
+            MUA NGAY GIAO HÀNG TẬN TAY →
+          </button>
+          <button class="btn-add-cart-outline" id="btnAddToCartDetail" onclick="handleAddCartDetail()">
+            🛒 Thêm Giỏ Hàng
+          </button>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; margin-top:20px; font-size:12.5px; color:var(--text-muted); border-top:1px solid var(--border-light); padding-top:16px;">
+          <span>✓ Miễn phí vận chuyển toàn quốc</span>
+          <span>✓ Kiểm tra hàng trước khi thanh toán</span>
+          <span>✓ 1 đổi 1 trong 30 ngày</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bài viết chi tiết mô tả sản phẩm -->
+    <section style="background:#fff; border:1px solid var(--border); border-radius:var(--radius-xl); padding:32px; margin-bottom:36px; box-shadow:var(--shadow-xs);">
+      <h3 style="font-size:18px; font-weight:800; color:var(--dark); margin-bottom:16px; border-bottom:1.5px solid var(--border-light); padding-bottom:12px;">
+        ĐẶC ĐIỂM NỔI BẬT & ĐÁNH GIÁ CHI TIẾT
+      </h3>
+      <div id="detailFullDescription" style="font-size:14px; line-height:1.7; color:#334155;">
+        <!-- Render mô tả -->
+      </div>
+    </section>
+
+    <!-- Sản phẩm tương tự cùng danh mục -->
+    <section style="background:#fff; border:1px solid var(--border); border-radius:var(--radius-xl); padding:28px; margin-bottom:50px; box-shadow:var(--shadow-xs);">
+      <div class="section-header-box" style="margin-bottom:20px;">
+        <div class="section-title-wrap">
+          <span class="section-badge" style="background:var(--primary-light); color:var(--primary);">📱</span>
+          <div>
+            <h3 class="section-main-title">SMARTPHONE CÙNG PHÂN KHÚC NÊN XEM</h3>
+          </div>
+        </div>
+      </div>
+      <div class="grid-5-cols" id="relatedProductsGrid">
+        <!-- Render 5 sản phẩm tương tự -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Popup Xem Thông Số Kỹ Thuật Đầy Đủ -->
+  <div class="modal-overlay hidden" id="fullSpecsModal">
+    <div class="modal-content" style="max-width: 660px;">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">
+          📋 BẢNG THÔNG SỐ KỸ THUẬT CHI TIẾT
+        </h3>
+        <button class="btn-close" onclick="closeFullSpecsModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; gap:16px; align-items:center; background:#f8fafc; padding:14px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:20px;">
+          <img id="specsModalThumb" src="" style="width:60px; height:60px; object-fit:contain; border-radius:8px; background:#fff; border:1px solid var(--border);">
+          <div>
+            <h4 id="specsModalProdName" style="font-size:14.5px; font-weight:800; color:var(--dark); line-height:1.35; margin-bottom:4px;">Tên sản phẩm</h4>
+            <div style="font-size:14px; color:var(--primary); font-weight:900;" id="specsModalPrice">0 đ</div>
+          </div>
+        </div>
+
+        <table class="data-table" style="min-width:100%; border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden;">
+          <tbody id="specsTableBody">
+            <!-- Render thông số chi tiết -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-backdrop" id="cartBackdrop" onclick="closeCartDrawer()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 class="cart-title">🛍️ Giỏ Hàng Của Bạn</h3>
+      <button class="btn-close" onclick="closeCartDrawer()">✕</button>
+    </div>
+    <div class="cart-body" id="cartItemsBody"></div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Tổng thanh toán:</span>
+        <span id="cartSubtotal" style="color: var(--primary); font-size:19px; font-weight:900;">0 đ</span>
+      </div>
+      <button class="btn-checkout-start" onclick="openCheckoutModal()">
+        Tiến Hành Đặt Hàng →
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Đặt Hàng -->
+  <div class="modal-overlay hidden" id="checkoutModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">📦 Thông Tin Giao Hàng & Thanh Toán</h3>
+        <button class="btn-close" onclick="closeCheckoutModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Họ và Tên (*)</label>
+            <input type="text" name="customerName" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" required>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Số Điện Thoại (*)</label>
+              <input type="tel" name="customerPhone" class="form-input" placeholder="09xxxxxxxx" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Email (*)</label>
+              <input type="email" name="customerEmail" class="form-input" placeholder="email@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Địa Chỉ Nhận Máy (*)</label>
+            <input type="text" name="shippingAddress" class="form-input" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phương Thức Thanh Toán (*)</label>
+            <select name="paymentMethod" class="form-select" required>
+              <option value="VIETQR">🏦 Chuyển khoản Ngân hàng (Mã VietQR)</option>
+              <option value="MOMO_QR">📱 Ví Điện Tử MoMo (Quét QR)</option>
+              <option value="COD">💵 Thanh toán tiền mặt khi nhận hàng (COD)</option>
+            </select>
+          </div>
+          <button type="submit" id="btnSubmitOrder" class="btn-checkout-start">
+            Xác Nhận Đặt Mua
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thanh Toán QR -->
+  <div class="modal-overlay hidden" id="qrModal">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">⚡ Quét Mã QR Thanh Toán Nhanh</h3>
+        <button class="btn-close" onclick="closeQRModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="qr-preview-box">
+          <img id="qrImage" src="" alt="Mã QR Thanh Toán" class="qr-img">
+          <div style="font-size: 14px; margin-bottom: 4px;">Mã đơn: <strong id="qrOrderCode">#...</strong></div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--primary); margin-bottom: 8px;">Số tiền: <span id="qrTotalAmount">0 đ</span></div>
+          <div style="font-size: 12.5px; background: var(--primary-light); color: var(--primary); padding: 8px; border-radius: 8px;" id="qrNoteInfo">
+            Nội dung CK: DH ...
+          </div>
+        </div>
+        <button class="btn-checkout-start" onclick="closeQRModal()">
+          ✓ Tôi Đã Hoàn Tất Chuyển Khoản
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="margin-bottom: 8px; font-weight: 700; color: #f1f5f9;">NOVAPHONE STORE — HỆ THỐNG PHÂN PHỐI ĐIỆN THOẠI DI ĐỘNG & SMARTPHONE CHÍNH HÃNG</p>
+      <p style="font-size: 12px; color: #64748b;">© 2026 NovaPhone Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentDetailProduct = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initMegaMenu();
+      loadProductDetailData();
+    });
+
+    async function loadProductDetailData() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const prodId = urlParams.get('id') || 'phone_apple_01';
+
+      let localProducts = [];
+      try {
+        const localRes = await fetch('../src/data/products.json');
+        localProducts = await localRes.json();
+      } catch (e) {
+        console.warn('Không đọc được file products.json');
+      }
+
+      const prodRes = await API.getProducts();
+      let allProds = prodRes.data || [];
+
+      if (allProds.length > 0) {
+        allProds = allProds.map(apiProd => {
+          const localMatch = localProducts.find(lp => lp.name === apiProd.name || lp._id === apiProd._id);
+          return {
+            ...apiProd,
+            specs: apiProd.specs || (localMatch ? localMatch.specs : {}),
+            ram: apiProd.ram || (localMatch ? localMatch.ram : ''),
+            storage: apiProd.storage || (localMatch ? localMatch.storage : ''),
+            screen: apiProd.screen || (localMatch ? localMatch.screen : ''),
+            cpu: apiProd.cpu || (localMatch ? localMatch.cpu : ''),
+            battery: apiProd.battery || (localMatch ? localMatch.battery : ''),
+            camera: apiProd.camera || (localMatch ? localMatch.camera : ''),
+            color: apiProd.color || (localMatch ? localMatch.color : ''),
+            images: (apiProd.images && apiProd.images.length > 0) ? apiProd.images : (localMatch ? localMatch.images : [apiProd.image])
+          };
+        });
+      } else {
+        allProds = localProducts;
+      }
+
+      currentDetailProduct = allProds.find(p => p._id === prodId || p.slug === prodId || (p.name && prodId.includes(p._id))) || allProds[0];
+
+      if (!currentDetailProduct) return;
+
+      const p = currentDetailProduct;
+      const orig = Number(p.originalPrice) || 0;
+      const sale = Number(p.salePrice) || orig;
+      const pct = orig > sale ? Math.round(((orig - sale) / orig) * 100) : 0;
+
+      // Update Breadcrumb & Header
+      document.title = `${p.name} — NOVAPHONE`;
+      document.getElementById('detailBreadcrumbName').innerText = p.name;
+      document.getElementById('detailName').innerText = p.name;
+      document.getElementById('detailBrand').innerText = `${(p.brand || 'CHÍNH HÃNG').toUpperCase()} VN/A`;
+      document.getElementById('detailSku').innerText = `Mã SP: ${p._id}`;
+      const catEl = document.getElementById('detailBreadcrumbCategory');
+      if (catEl) {
+        catEl.innerText = p.category?.name || p.brand || 'Điện thoại';
+        catEl.href = `category.html?slug=${p.category?.slug || 'iphone'}`;
+      }
+
+      // Giá bán
+      document.getElementById('detailSalePrice').innerText = `${sale.toLocaleString('vi-VN')} đ`;
+      document.getElementById('detailOriginalPrice').innerText = orig > sale ? `${orig.toLocaleString('vi-VN')} đ` : '';
+      document.getElementById('detailDiscount').innerText = pct > 0 ? `Tiết kiệm ${pct}%` : 'Giá cực tốt';
+
+      // Gallery Images
+      const imgList = (p.images && p.images.length > 0) ? p.images : [p.image || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600'];
+      document.getElementById('detailMainImage').src = imgList[0];
+
+      const thumbsContainer = document.getElementById('detailThumbs');
+      thumbsContainer.innerHTML = imgList.map((img, idx) => `
+        <img src="${img}" class="gallery-thumb ${idx === 0 ? 'active' : ''}" onclick="changeDetailImage('${img}', this)">
+      `).join('');
+
+      // Thông số kỹ thuật nhanh
+      const quickSpecs = document.getElementById('detailQuickSpecs');
+      quickSpecs.innerHTML = `
+        <div class="spec-mini-item">
+          <span class="spec-mini-label">Màn hình:</span>
+          <span class="spec-mini-val">${p.screen || 'OLED 120Hz'}</span>
+        </div>
+        <div class="spec-mini-item">
+          <span class="spec-mini-label">Chip xử lý (CPU):</span>
+          <span class="spec-mini-val">${p.cpu || 'Flagship Processor'}</span>
+        </div>
+        <div class="spec-mini-item">
+          <span class="spec-mini-label">Dung lượng RAM:</span>
+          <span class="spec-mini-val">${p.ram || '8GB LPDDR5X'}</span>
+        </div>
+        <div class="spec-mini-item">
+          <span class="spec-mini-label">Bộ nhớ trong:</span>
+          <span class="spec-mini-val">${p.storage || '128GB / 256GB'}</span>
+        </div>
+        <div class="spec-mini-item">
+          <span class="spec-mini-label">Camera sau:</span>
+          <span class="spec-mini-val">${p.camera || 'Chính 50MP OIS'}</span>
+        </div>
+        <div class="spec-mini-item">
+          <span class="spec-mini-label">Pin & Sạc:</span>
+          <span class="spec-mini-val">${p.battery || '5000 mAh, Sạc siêu nhanh'}</span>
+        </div>
+      `;
+
+      // Mô tả chi tiết
+      document.getElementById('detailFullDescription').innerHTML = `
+        <p style="margin-bottom:12px; font-size:15px; font-weight:600; color:var(--dark);">${p.description || 'Điện thoại thông minh chính hãng được phân phối tại hệ thống NovaPhone Store.'}</p>
+        <p style="margin-bottom:12px;">Sản phẩm được trang bị vi xử lý thế hệ mới mang lại hiệu năng xử lý mượt mà cho mọi tác vụ từ quay video 4K, xử lý đồ họa gaming đến các tính năng trí tuệ nhân tạo AI thông minh. Màn hình sắc nét cùng tần số quét cao mang lại trải nghiệm thị giác sống động và chân thực nhất.</p>
+        <div style="background:#eff6ff; padding:16px 20px; border-radius:10px; border-left:4px solid var(--primary); margin:16px 0;">
+          <strong style="color:var(--primary);">Chính sách bảo hành vàng NovaPhone:</strong> Cam kết hàng mới 100% nguyên hộp nguyên seal. Bảo hành 12 - 24 tháng chính hãng tại tất cả các trung tâm bảo hành ủy quyền trên toàn quốc. 1 đổi 1 trong vòng 30 ngày nếu phát sinh lỗi từ nhà sản xuất.
+        </div>
+      `;
+
+      // Sản phẩm tương tự
+      const relatedProds = allProds.filter(item => item._id !== p._id && (item.brand === p.brand || item.category === p.category || item.category?._id === p.category?._id)).slice(0, 5);
+      const relatedGrid = document.getElementById('relatedProductsGrid');
+      if (relatedGrid) {
+        relatedGrid.innerHTML = relatedProds.map(item => createProductCardHTML(item)).join('');
+      }
+    }
+
+    function changeDetailImage(src, thumbEl) {
+      document.getElementById('detailMainImage').src = src;
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumbEl.classList.add('active');
+    }
+
+    function handleAddCartDetail() {
+      if (!currentDetailProduct) return;
+      addToCart(
+        currentDetailProduct._id,
+        currentDetailProduct.name,
+        currentDetailProduct.salePrice || currentDetailProduct.originalPrice,
+        currentDetailProduct.image
+      );
+    }
+
+    function handleBuyNow() {
+      handleAddCartDetail();
+      openCartDrawer();
+    }
+
+    function openFullSpecsModal() {
+      if (!currentDetailProduct) return;
+      const p = currentDetailProduct;
+      const modal = document.getElementById('fullSpecsModal');
+      const thumb = document.getElementById('specsModalThumb');
+      const nameEl = document.getElementById('specsModalProdName');
+      const priceEl = document.getElementById('specsModalPrice');
+      const tbody = document.getElementById('specsTableBody');
+
+      thumb.src = p.image || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600';
+      nameEl.innerText = p.name;
+      priceEl.innerText = `${Number(p.salePrice || p.originalPrice).toLocaleString('vi-VN')} đ`;
+
+      const s = p.specs || {};
+      let rows = [
+        { label: 'Thương hiệu / Hãng', val: p.brand || s['Thương hiệu'] || 'Chính hãng VN/A' },
+        { label: 'Model máy', val: p.name },
+        { label: 'Màn hình hiển thị', val: p.screen || s['Màn hình'] || s['Màn hình chính'] || 'AMOLED 120Hz' },
+        { label: 'Chip xử lý (CPU)', val: p.cpu || s['Chip xử lý (CPU)'] || 'Octa-core High Performance' },
+        { label: 'Bộ nhớ RAM', val: p.ram || s['RAM'] || '8GB LPDDR5X' },
+        { label: 'Bộ nhớ trong (ROM)', val: p.storage || s['Bộ nhớ trong'] || '256GB' },
+        { label: 'Hệ thống Camera', val: p.camera || s['Camera sau'] || 'Chính 50MP + Siêu rộng + Tele' },
+        { label: 'Dung lượng Pin & Sạc', val: p.battery || s['Pin'] || '5000 mAh hỗ trợ sạc nhanh' },
+        { label: 'Màu sắc khả dụng', val: p.color || s['Màu sắc'] || 'Đa dạng sắc màu sang trọng' },
+        { label: 'Hệ điều hành', val: s['Hệ điều hành'] || 'Android / iOS mới nhất' },
+        { label: 'Tình trạng sản phẩm', val: 'Mới 100% nguyên seal chính hãng' },
+        { label: 'Chế độ bảo hành', val: '12 - 24 tháng chính hãng, 1 đổi 1 30 ngày' }
+      ];
+
+      tbody.innerHTML = rows.map((r, i) => `
+        <tr style="background:${i % 2 === 0 ? '#ffffff' : '#f8fafc'};">
+          <td style="width:38%; font-weight:700; color:#475569; padding:12px 18px; border-bottom:1px solid #f1f5f9;">${r.label}</td>
+          <td style="font-weight:600; color:var(--dark); padding:12px 18px; border-bottom:1px solid #f1f5f9;">${r.val}</td>
+        </tr>
+      `).join('');
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeFullSpecsModal() {
+      const modal = document.getElementById('fullSpecsModal');
+      if (modal) modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

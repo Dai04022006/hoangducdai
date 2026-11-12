@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Mục Smartphone Chính Hãng — NOVAPHONE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="top-notice-bar">
+    🔥 <span>SIÊU SALE ĐIỆN THOẠI 2026:</span> Giảm đến 40% Smartphone chính hãng Apple, Samsung, Xiaomi, OPPO, Vivo, Realme — Bảo hành 12-24 tháng 1 đổi 1!
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-logo-icon">📱</div>
+        <span>NOVAPHONE</span>
+        <span class="brand-badge">PRO</span>
+      </a>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Tìm dòng điện thoại, iPhone, Galaxy, dung lượng RAM/ROM...">
+      </div>
+
+      <div class="header-actions">
+        <div id="userAuthArea" class="user-auth-area"></div>
+        <button class="btn-cart-toggle" onclick="openCartDrawer()">
+          <span>🛒 Giỏ hàng</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <a href="admin.html" id="adminPortalLink" class="btn-admin-link hidden">
+          ⚙️ Quản Trị
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mega Menu Navigation Bar -->
+  <nav class="category-nav-bar">
+    <div class="container cat-nav-inner">
+      <div class="mega-menu-trigger" id="megaMenuTrigger">
+        <span>☰</span> BỘ SƯU TẬP HÃNG ▾
+      </div>
+      <div class="sub-nav-links">
+        <a href="category.html?slug=iphone">🍎 IPHONE</a>
+        <a href="category.html?slug=samsung">✨ SAMSUNG</a>
+        <a href="category.html?slug=xiaomi">⚡ XIAOMI</a>
+        <a href="category.html?slug=oppo">📸 OPPO</a>
+        <a href="category.html?slug=vivo">🎵 VIVO</a>
+        <a href="category.html?slug=realme">🚀 REALME</a>
+        <a href="index.html#flashSaleSection" style="color:var(--primary); font-weight:800;">🔥 SALE SỐC</a>
+      </div>
+
+      <div class="mega-dropdown-wrapper hidden" id="megaDropdown">
+        <div class="mega-cat-list" id="megaCatList"></div>
+        <div class="mega-cat-panel" id="megaCatPanel"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a> <span>›</span>
+      <span id="breadcrumbCategoryName" style="color:var(--dark); font-weight:700;">Danh mục</span>
+    </div>
+
+    <!-- Category Header Hero -->
+    <div style="background: radial-gradient(circle at top right, #1e293b, var(--dark) 70%); border-radius:var(--radius-xl); padding:32px 36px; color:#fff; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; box-shadow:var(--shadow-md);">
+      <div>
+        <span style="font-size:11.5px; background:rgba(37, 99, 235, 0.2); color:#60a5fa; border:1px solid rgba(96, 165, 250, 0.3); padding:4px 12px; border-radius:100px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase;">SMARTPHONE CHÍNH HÃNG 100%</span>
+        <h1 id="catHeaderTitle" style="font-size:28px; font-weight:900; margin:10px 0 8px; letter-spacing:-0.5px;">Danh Mục Sản Phẩm</h1>
+        <p id="catHeaderDesc" style="font-size:13.5px; color:#94a3b8; max-width:640px;">Cam kết 100% chính hãng phân phối tại Việt Nam, bảo hành 12-24 tháng, hỗ trợ trả góp 0% lãi suất.</p>
+      </div>
+      <div style="text-align:right;">
+        <span style="font-size:42px;">📱</span>
+      </div>
+    </div>
+
+    <!-- Main Layout: Sidebar Filter Left + Products Grid Right -->
+    <div class="cat-page-layout">
+
+      <!-- SIDEBAR FILTERS -->
+      <aside class="filter-sidebar" id="filterSidebar">
+        <div class="filter-sidebar-title">
+          <span>⚙️</span> BỘ LỌC TÌM KIẾM
+        </div>
+
+        <!-- 1. Lọc Khoảng giá -->
+        <div class="filter-group">
+          <div class="filter-group-header">
+            <span>Khoảng giá</span>
+            <span>▾</span>
+          </div>
+          <div class="filter-options-list">
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="priceRange" value="all" checked onchange="handlePriceFilter(this)">
+              <span>Tất cả mức giá</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="priceRange" value="0-10000000" onchange="handlePriceFilter(this)">
+              <span>Dưới 10 triệu</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="priceRange" value="10000000-20000000" onchange="handlePriceFilter(this)">
+              <span>Từ 10 triệu - 20 triệu</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="priceRange" value="20000000-30000000" onchange="handlePriceFilter(this)">
+              <span>Từ 20 triệu - 30 triệu</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="priceRange" value="30000000-999000000" onchange="handlePriceFilter(this)">
+              <span>Trên 30 triệu</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dynamic Filter Groups: Thương hiệu, RAM, Bộ nhớ -->
+        <div id="dynamicFilterGroups"></div>
+
+        <button class="btn-checkout-start" style="padding:10px; font-size:13px; margin-top:10px; border-radius:var(--radius-sm);" onclick="resetAllFilters()">
+          ↺ Xóa Tất Cả Bộ Lọc
+        </button>
+      </aside>
+
+      <!-- PRODUCTS COLUMN -->
+      <div class="cat-products-col">
+        <!-- Top Filter Bar -->
+        <div class="cat-top-bar">
+          <div class="trend-chips-row">
+            <span class="trend-title">Phân khúc:</span>
+            <button class="trend-chip active" onclick="applyTrendFilter('all', this)">Tất cả</button>
+            <button class="trend-chip" onclick="applyTrendFilter('Flagship', this)">👑 Flagship Cao Cấp</button>
+            <button class="trend-chip" onclick="applyTrendFilter('Camera', this)">📸 Chuyên Gia Nhiếp Ảnh</button>
+            <button class="trend-chip" onclick="applyTrendFilter('Gaming', this)">⚡ Gaming & Hiệu Năng</button>
+            <button class="trend-chip" onclick="applyTrendFilter('Duoi 10 Trieu', this)">💰 Dưới 10 Triệu</button>
+          </div>
+
+          <div class="sort-and-count-row">
+            <div>
+              Tìm thấy <strong id="catTotalFound" style="color:var(--primary); font-size:15px;">0</strong> sản phẩm
+            </div>
+
+            <div class="sort-options">
+              <span style="color:var(--text-muted); font-weight:600;">Sắp xếp:</span>
+              <button class="sort-option-btn active" onclick="applySorting('newest', this)">Mới nhất</button>
+              <span>·</span>
+              <button class="sort-option-btn" onclick="applySorting('price_asc', this)">Giá tăng dần</button>
+              <span>·</span>
+              <button class="sort-option-btn" onclick="applySorting('price_desc', this)">Giá giảm dần</button>
+              <span>·</span>
+              <button class="sort-option-btn" onclick="applySorting('name_az', this)">Tên A-Z</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Products Grid -->
+        <div class="grid-5-cols" id="categoryProductsGrid" style="grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));">
+          <!-- Render danh sách điện thoại -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-backdrop" id="cartBackdrop" onclick="closeCartDrawer()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 class="cart-title">🛍️ Giỏ Hàng Của Bạn</h3>
+      <button class="btn-close" onclick="closeCartDrawer()">✕</button>
+    </div>
+    <div class="cart-body" id="cartItemsBody"></div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Tổng thanh toán:</span>
+        <span id="cartSubtotal" style="color: var(--primary); font-size:19px; font-weight:900;">0 đ</span>
+      </div>
+      <button class="btn-checkout-start" onclick="openCheckoutModal()">
+        Tiến Hành Đặt Hàng →
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Đặt Hàng -->
+  <div class="modal-overlay hidden" id="checkoutModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">📦 Thông Tin Giao Hàng & Thanh Toán</h3>
+        <button class="btn-close" onclick="closeCheckoutModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Họ và Tên (*)</label>
+            <input type="text" name="customerName" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" required>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Số Điện Thoại (*)</label>
+              <input type="tel" name="customerPhone" class="form-input" placeholder="09xxxxxxxx" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Email (*)</label>
+              <input type="email" name="customerEmail" class="form-input" placeholder="email@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Địa Chỉ Nhận Máy (*)</label>
+            <input type="text" name="shippingAddress" class="form-input" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phương Thức Thanh Toán (*)</label>
+            <select name="paymentMethod" class="form-select" required>
+              <option value="VIETQR">🏦 Chuyển khoản Ngân hàng (Mã VietQR)</option>
+              <option value="MOMO_QR">📱 Ví Điện Tử MoMo (Quét QR)</option>
+              <option value="COD">💵 Thanh toán tiền mặt khi nhận hàng (COD)</option>
+            </select>
+          </div>
+          <button type="submit" id="btnSubmitOrder" class="btn-checkout-start">
+            Xác Nhận Đặt Mua
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thanh Toán QR -->
+  <div class="modal-overlay hidden" id="qrModal">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">⚡ Quét Mã QR Thanh Toán Nhanh</h3>
+        <button class="btn-close" onclick="closeQRModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="qr-preview-box">
+          <img id="qrImage" src="" alt="Mã QR Thanh Toán" class="qr-img">
+          <div style="font-size: 14px; margin-bottom: 4px;">Mã đơn: <strong id="qrOrderCode">#...</strong></div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--primary); margin-bottom: 8px;">Số tiền: <span id="qrTotalAmount">0 đ</span></div>
+          <div style="font-size: 12.5px; background: var(--primary-light); color: var(--primary); padding: 8px; border-radius: 8px;" id="qrNoteInfo">
+            Nội dung CK: DH ...
+          </div>
+        </div>
+        <button class="btn-checkout-start" onclick="closeQRModal()">
+          ✓ Tôi Đã Hoàn Tất Chuyển Khoản
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="margin-bottom: 8px; font-weight: 700; color: #f1f5f9;">NOVAPHONE STORE — HỆ THỐNG PHÂN PHỐI ĐIỆN THOẠI DI ĐỘNG & SMARTPHONE CHÍNH HÃNG</p>
+      <p style="font-size: 12px; color: #64748b;">© 2026 NovaPhone Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentCategoryData = null;
+    let categoryProducts = [];
+    let activeFilters = {
+      priceRange: 'all',
+      brand: [],
+      ram: [],
+      storage: [],
+      trend: 'all',
+      sort: 'newest'
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initMegaMenu();
+      initCategoryPage();
+    });
+
+    async function initCategoryPage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const catSlug = urlParams.get('slug') || 'iphone';
+      const initialFilter = urlParams.get('filter');
+
+      // Tải danh mục
+      const catRes = await API.getCategories();
+      let allCats = catRes.data || [];
+      currentCategoryData = allCats.find(c => c.slug === catSlug) || allCats[0];
+
+      if (currentCategoryData) {
+        document.getElementById('breadcrumbCategoryName').innerText = currentCategoryData.name;
+        document.getElementById('catHeaderTitle').innerText = 'Điện Thoại ' + currentCategoryData.name;
+        document.getElementById('catHeaderDesc').innerText = currentCategoryData.description || 'Smartphone chính hãng, bảo hành 12 - 24 tháng 1 đổi 1.';
+      }
+
+      // Đọc products.json cục bộ để hợp nhất đầy đủ specs & images
+      let localProducts = [];
+      try {
+        const localRes = await fetch('../src/data/products.json');
+        localProducts = await localRes.json();
+      } catch (e) {
+        console.warn('Không đọc được file products.json');
+      }
+
+      // Tải sản phẩm từ API
+      const prodRes = await API.getProducts();
+      let allProds = prodRes.data || [];
+
+      if (allProds.length > 0) {
+        allProds = allProds.map(apiProd => {
+          const localMatch = localProducts.find(lp => lp.name === apiProd.name || lp._id === apiProd._id);
+          return {
+            ...apiProd,
+            category: apiProd.category || (localMatch ? localMatch.category : ''),
+            specs: apiProd.specs || (localMatch ? localMatch.specs : {}),
+            ram: apiProd.ram || (localMatch ? localMatch.ram : ''),
+            storage: apiProd.storage || (localMatch ? localMatch.storage : ''),
+            screen: apiProd.screen || (localMatch ? localMatch.screen : ''),
+            cpu: apiProd.cpu || (localMatch ? localMatch.cpu : ''),
+            battery: apiProd.battery || (localMatch ? localMatch.battery : ''),
+            camera: apiProd.camera || (localMatch ? localMatch.camera : ''),
+            color: apiProd.color || (localMatch ? localMatch.color : ''),
+            images: (apiProd.images && apiProd.images.length > 0) ? apiProd.images : (localMatch ? localMatch.images : [apiProd.image])
+          };
+        });
+      } else {
+        allProds = localProducts;
+      }
+
+      const targetMongoId = currentCategoryData ? String(currentCategoryData._id) : '';
+
+      // Lọc theo danh mục / hãng điện thoại
+      categoryProducts = allProds.filter(p => {
+        if (!p.category && !p.brand) return false;
+        const pCatId = typeof p.category === 'object' ? (p.category._id || p.category.slug || '') : String(p.category || '');
+        const pCatSlug = typeof p.category === 'object' ? (p.category.slug || '') : '';
+        const pBrand = (p.brand || '').toLowerCase();
+        const pName = (p.name || '').toLowerCase();
+
+        return (
+          pCatId === ('cat_' + catSlug) ||
+          pCatId === targetMongoId ||
+          pCatSlug === catSlug ||
+          pBrand.includes(catSlug) ||
+          pName.includes(catSlug)
+        );
+      });
+
+      if (categoryProducts.length === 0) {
+        categoryProducts = allProds;
+      }
+
+      renderDynamicSidebarFilters(currentCategoryData?.slug || 'iphone');
+
+      if (initialFilter) {
+        const upper = initialFilter.toUpperCase();
+        if (['128GB', '256GB', '512GB', '1TB'].some(s => upper.includes(s))) {
+          activeFilters.storage = [initialFilter];
+        } else if (['4GB', '6GB', '8GB', '12GB', '16GB'].some(r => upper.includes(r))) {
+          activeFilters.ram = [initialFilter];
+        } else if (['APPLE', 'SAMSUNG', 'XIAOMI', 'OPPO', 'VIVO', 'REALME'].some(b => upper.includes(b))) {
+          activeFilters.brand = [initialFilter];
+        }
+      }
+
+      applyFiltersAndRender();
+    }
+
+    function renderDynamicSidebarFilters(slug) {
+      const container = document.getElementById('dynamicFilterGroups');
+      if (!container) return;
+
+      container.innerHTML = `
+        <!-- Thương hiệu điện thoại -->
+        <div class="filter-group">
+          <div class="filter-group-header"><span>Thương hiệu</span><span>▾</span></div>
+          <div class="filter-options-list">
+            ${['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'Vivo', 'Realme'].map(b => `
+              <label class="filter-checkbox-label">
+                <input type="checkbox" name="filter_brand" value="${b}" onchange="handleSpecCheckbox('brand', this)">
+                <span>${b}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Dung lượng RAM -->
+        <div class="filter-group">
+          <div class="filter-group-header"><span>Dung lượng RAM</span><span>▾</span></div>
+          <div class="filter-options-list">
+            ${['4GB', '6GB', '8GB', '12GB', '16GB'].map(r => `
+              <label class="filter-checkbox-label">
+                <input type="checkbox" name="filter_ram" value="${r}" onchange="handleSpecCheckbox('ram', this)">
+                <span>RAM ${r}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Bộ nhớ trong (ROM) -->
+        <div class="filter-group">
+          <div class="filter-group-header"><span>Bộ nhớ trong</span><span>▾</span></div>
+          <div class="filter-options-list">
+            ${['128GB', '256GB', '512GB', '1TB'].map(m => `
+              <label class="filter-checkbox-label">
+                <input type="checkbox" name="filter_storage" value="${m}" onchange="handleSpecCheckbox('storage', this)">
+                <span>${m}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function handlePriceFilter(cb) {
+      if (cb.value === 'all') {
+        document.querySelectorAll('input[name="priceRange"]').forEach(c => {
+          if (c !== cb) c.checked = false;
+        });
+        activeFilters.priceRange = 'all';
+      } else {
+        const allCb = document.querySelector('input[name="priceRange"][value="all"]');
+        if (allCb) allCb.checked = false;
+        activeFilters.priceRange = cb.checked ? cb.value : 'all';
+      }
+      applyFiltersAndRender();
+    }
+
+    function handleSpecCheckbox(type, cb) {
+      const val = cb.value;
+      if (cb.checked) {
+        if (!activeFilters[type].includes(val)) activeFilters[type].push(val);
+      } else {
+        activeFilters[type] = activeFilters[type].filter(v => v !== val);
+      }
+      applyFiltersAndRender();
+    }
+
+    function applyTrendFilter(trendVal, btn) {
+      document.querySelectorAll('.trend-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters.trend = trendVal;
+      applyFiltersAndRender();
+    }
+
+    function applySorting(sortVal, btn) {
+      document.querySelectorAll('.sort-option-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters.sort = sortVal;
+      applyFiltersAndRender();
+    }
+
+    function resetAllFilters() {
+      document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(c => c.checked = false);
+      const allCb = document.querySelector('input[name="priceRange"][value="all"]');
+      if (allCb) allCb.checked = true;
+      document.querySelectorAll('.trend-chip').forEach(b => b.classList.remove('active'));
+      const defaultTrend = document.querySelector('.trend-chip');
+      if (defaultTrend) defaultTrend.classList.add('active');
+      
+      activeFilters = {
+        priceRange: 'all',
+        brand: [],
+        ram: [],
+        storage: [],
+        trend: 'all',
+        sort: 'newest'
+      };
+      applyFiltersAndRender();
+    }
+
+    function applyFiltersAndRender() {
+      let filtered = [...categoryProducts];
+
+      // 1. Lọc giá
+      if (activeFilters.priceRange && activeFilters.priceRange !== 'all') {
+        const [min, max] = activeFilters.priceRange.split('-').map(Number);
+        filtered = filtered.filter(p => {
+          const price = Number(p.salePrice) || Number(p.originalPrice) || 0;
+          return price >= min && price <= max;
+        });
+      }
+
+      // 2. Lọc thương hiệu
+      if (activeFilters.brand.length > 0) {
+        filtered = filtered.filter(p => {
+          const b = (p.brand || '').toUpperCase();
+          const name = (p.name || '').toUpperCase();
+          return activeFilters.brand.some(sel => b === sel.toUpperCase() || b.includes(sel.toUpperCase()) || name.includes(sel.toUpperCase()));
+        });
+      }
+
+      // 3. Lọc RAM
+      if (activeFilters.ram.length > 0) {
+        filtered = filtered.filter(p => {
+          const r = ((p.ram || '') + ' ' + (p.name || '') + ' ' + JSON.stringify(p.specs || {})).toUpperCase();
+          return activeFilters.ram.some(sel => r.includes(sel.toUpperCase()));
+        });
+      }
+
+      // 4. Lọc Storage
+      if (activeFilters.storage.length > 0) {
+        filtered = filtered.filter(p => {
+          const s = ((p.storage || '') + ' ' + (p.name || '') + ' ' + JSON.stringify(p.specs || {})).toUpperCase();
+          return activeFilters.storage.some(sel => s.includes(sel.toUpperCase()));
+        });
+      }
+
+      // 5. Lọc Phân khúc
+      if (activeFilters.trend && activeFilters.trend !== 'all') {
+        if (activeFilters.trend === 'Duoi 10 Trieu') {
+          filtered = filtered.filter(p => (Number(p.salePrice) || 0) < 10000000);
+        } else if (activeFilters.trend === 'Flagship') {
+          filtered = filtered.filter(p => (Number(p.salePrice) || 0) >= 20000000);
+        } else if (activeFilters.trend === 'Camera') {
+          filtered = filtered.filter(p => (p.description || '').toLowerCase().includes('camera') || (p.name || '').toLowerCase().includes('ultra') || (p.name || '').toLowerCase().includes('pro'));
+        } else if (activeFilters.trend === 'Gaming') {
+          filtered = filtered.filter(p => (p.description || '').toLowerCase().includes('game') || (p.description || '').toLowerCase().includes('gaming') || (p.cpu || '').toLowerCase().includes('gen 3'));
+        }
+      }
+
+      // 6. Sắp xếp
+      if (activeFilters.sort === 'price_asc') {
+        filtered.sort((a, b) => (Number(a.salePrice) || 0) - (Number(b.salePrice) || 0));
+      } else if (activeFilters.sort === 'price_desc') {
+        filtered.sort((a, b) => (Number(b.salePrice) || 0) - (Number(a.salePrice) || 0));
+      } else if (activeFilters.sort === 'name_az') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      const grid = document.getElementById('categoryProductsGrid');
+      const totalCountEl = document.getElementById('catTotalFound');
+      if (totalCountEl) totalCountEl.innerText = filtered.length;
+
+      if (!grid) return;
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="state-box" style="grid-column: 1 / -1; background:#fff; padding:40px; border-radius:var(--radius-lg); border:1px solid var(--border); text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">🔍</div>
+            <h3 style="font-size:16px; font-weight:800; color:var(--dark);">Không tìm thấy smartphone phù hợp với bộ lọc!</h3>
+            <p style="margin-top:6px; font-size:13px; color:var(--text-muted);">Hãy thử bấm "Xóa Tất Cả Bộ Lọc" hoặc chọn khoảng giá rộng hơn nhé.</p>
+          </div>
+        `;
+      } else {
+        grid.innerHTML = filtered.map(p => createProductCardHTML(p)).join('');
+      }
+    }
+  </script>
+</body>
+</html>

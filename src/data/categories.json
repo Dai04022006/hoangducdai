@@ -1,0 +1,187 @@
+[
+  {
+    "_id": "cat_iphone",
+    "name": "Apple (iPhone)",
+    "slug": "iphone",
+    "icon": "📱",
+    "description": "Điện thoại iPhone 16 Series, 15 Series, 14 Series, 13 Series chính hãng VN/A",
+    "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500",
+    "subcategories": {
+      "Dòng iPhone": [
+        "iPhone 16 Series",
+        "iPhone 15 Series",
+        "iPhone 14 Series",
+        "iPhone 13 Series"
+      ],
+      "Dung lượng": [
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB"
+      ],
+      "Mức giá": [
+        "Từ 15 - 20 triệu",
+        "Từ 20 - 30 triệu",
+        "Trên 30 triệu"
+      ]
+    }
+  },
+  {
+    "_id": "cat_samsung",
+    "name": "Samsung Galaxy",
+    "slug": "samsung",
+    "icon": "✨",
+    "description": "Điện thoại Samsung Galaxy S24 Ultra, Z Fold6, Z Flip6, Galaxy A Series",
+    "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500",
+    "subcategories": {
+      "Dòng Galaxy": [
+        "Galaxy S Series",
+        "Galaxy Z Fold / Z Flip",
+        "Galaxy A Series",
+        "Galaxy M Series"
+      ],
+      "Dung lượng RAM": [
+        "8GB",
+        "12GB",
+        "16GB"
+      ],
+      "Bộ nhớ trong": [
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB"
+      ],
+      "Mức giá": [
+        "Dưới 10 triệu",
+        "Từ 10 - 20 triệu",
+        "Trên 20 triệu"
+      ]
+    }
+  },
+  {
+    "_id": "cat_xiaomi",
+    "name": "Xiaomi",
+    "slug": "xiaomi",
+    "icon": "⚡",
+    "description": "Điện thoại Xiaomi 14 Series, Redmi Note 13 Series, POCO hiệu năng đỉnh cao",
+    "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500",
+    "subcategories": {
+      "Dòng sản phẩm": [
+        "Xiaomi Flagship Series",
+        "Redmi Note Series",
+        "POCO Gaming Phone",
+        "Redmi Series giá rẻ"
+      ],
+      "Dung lượng RAM": [
+        "6GB",
+        "8GB",
+        "12GB",
+        "16GB"
+      ],
+      "Bộ nhớ trong": [
+        "128GB",
+        "256GB",
+        "512GB"
+      ],
+      "Mức giá": [
+        "Dưới 5 triệu",
+        "Từ 5 - 10 triệu",
+        "Từ 10 - 20 triệu",
+        "Trên 20 triệu"
+      ]
+    }
+  },
+  {
+    "_id": "cat_oppo",
+    "name": "OPPO",
+    "slug": "oppo",
+    "icon": "📸",
+    "description": "Điện thoại OPPO Find X Series, Reno Series chụp ảnh chân dung chuyên nghiệp",
+    "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500",
+    "subcategories": {
+      "Dòng OPPO": [
+        "Find X Series Flagship",
+        "Reno Series Camera Portrait",
+        "A Series phổ thông"
+      ],
+      "Dung lượng RAM": [
+        "8GB",
+        "12GB",
+        "16GB"
+      ],
+      "Bộ nhớ trong": [
+        "128GB",
+        "256GB",
+        "512GB"
+      ],
+      "Mức giá": [
+        "Dưới 7 triệu",
+        "Từ 7 - 15 triệu",
+        "Trên 15 triệu"
+      ]
+    }
+  },
+  {
+    "_id": "cat_vivo",
+    "name": "Vivo",
+    "slug": "vivo",
+    "icon": "🎵",
+    "description": "Điện thoại Vivo X Series ống kính ZEISS, V Series thời trang, Y Series pin trâu",
+    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=500",
+    "subcategories": {
+      "Dòng Vivo": [
+        "Vivo X Series (ZEISS)",
+        "Vivo V Series Selfie",
+        "Vivo Y Series Giá Tốt"
+      ],
+      "Dung lượng RAM": [
+        "6GB",
+        "8GB",
+        "12GB",
+        "16GB"
+      ],
+      "Bộ nhớ trong": [
+        "128GB",
+        "256GB",
+        "512GB"
+      ],
+      "Mức giá": [
+        "Dưới 5 triệu",
+        "Từ 5 - 12 triệu",
+        "Trên 12 triệu"
+      ]
+    }
+  },
+  {
+    "_id": "cat_realme",
+    "name": "Realme",
+    "slug": "realme",
+    "icon": "🚀",
+    "description": "Điện thoại Realme GT Series, Số Series thiết kế trẻ trung, sạc siêu nhanh",
+    "image": "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500",
+    "subcategories": {
+      "Dòng Realme": [
+        "Realme GT Series",
+        "Realme Number Series (12/13)",
+        "Realme C Series giá rẻ"
+      ],
+      "Dung lượng RAM": [
+        "6GB",
+        "8GB",
+        "12GB",
+        "16GB"
+      ],
+      "Bộ nhớ trong": [
+        "128GB",
+        "256GB",
+        "512GB"
+      ],
+      "Mức giá": [
+        "Dưới 4 triệu",
+        "Từ 4 - 8 triệu",
+        "Từ 8 - 15 triệu",
+        "Trên 15 triệu"
+      ]
+    }
+  }
+]

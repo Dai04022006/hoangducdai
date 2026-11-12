@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển Quản Trị — NOVAPHONE ADMIN</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { background-color: #f8fafc; }
+    .admin-app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+    
+    /* Modern Admin Sidebar */
+    .admin-sidebar {
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--dark-border);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      z-index: 50;
+    }
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--dark-border);
+      text-decoration: none;
+      color: #fff;
+    }
+    .admin-brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .admin-brand-text { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+    .admin-brand-sub { font-size: 11px; color: #94a3b8; font-weight: 500; }
+
+    .sidebar-menu { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .sidebar-item:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+    .sidebar-item.active { background: var(--primary); color: #fff; font-weight: 700; }
+    .sidebar-item-icon { font-size: 18px; width: 22px; text-align: center; }
+
+    .sidebar-footer {
+      padding-top: 18px;
+      border-top: 1px solid var(--dark-border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sidebar-user { display: flex; align-items: center; gap: 10px; }
+    .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 1px solid var(--dark-border); }
+    .user-info-name { font-size: 13px; font-weight: 700; color: #fff; }
+    .user-info-role { font-size: 11px; color: #10b981; font-weight: 600; }
+    .btn-sidebar-store {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border: 1px solid var(--dark-border);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-sidebar-store:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+    .btn-sidebar-logout {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 4px;
+    }
+
+    /* Admin Main Content */
+    .admin-main { padding: 32px 36px 60px; overflow-y: auto; }
+    .admin-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .admin-title-head { font-size: 24px; font-weight: 900; color: var(--dark); letter-spacing: -0.5px; }
+    .admin-sub-head { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Top KPI Cards */
+    .stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 30px; }
+    .stat-card {
+      background: #fff;
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .stat-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-icon-wrap { width: 36px; height: 36px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .stat-num { font-size: 26px; font-weight: 900; color: var(--dark); margin-bottom: 4px; }
+    .stat-footer { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+
+    /* Filter Toolbars */
+    .admin-filter-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: #fff;
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xs);
+    }
+    .admin-search-input {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      width: 300px;
+      outline: none;
+      background: #f8fafc;
+    }
+    .admin-search-input:focus { border-color: var(--primary); background: #fff; }
+
+    /* Status Badges */
+    .badge-status { display: inline-block; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 0.3px; }
+    .status-PENDING { background: #fef3c7; color: #b45309; }
+    .status-CONFIRMED { background: #dbeafe; color: #1e40af; }
+    .status-PAID { background: #dcfce7; color: #15803d; }
+    .status-SHIPPING { background: #e0f2fe; color: #0369a1; }
+    .status-COMPLETED { background: #f3e8ff; color: #7e22ce; }
+    .status-CANCELLED { background: #fee2e2; color: #b91c1c; }
+
+    .stock-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 100px; font-size: 11.5px; font-weight: 700; }
+    .stock-danger { background: #fee2e2; color: #b91c1c; }
+    .stock-warning { background: #fef3c7; color: #b45309; }
+    .stock-success { background: #dcfce7; color: #15803d; }
+
+    .reserved-pill { background: #f1f5f9; color: #0284c7; padding: 3px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 700; border: 1px solid #bae6fd; }
+
+    .btn-action-group { display: flex; gap: 6px; }
+    .btn-tbl { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.15s; }
+    .btn-tbl-view { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .btn-tbl-view:hover { background: #dcfce7; }
+    .btn-tbl-edit { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .btn-tbl-edit:hover { background: #dbeafe; }
+    .btn-tbl-del { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .btn-tbl-del:hover { background: #fca5a5; }
+
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+    .analytics-panel { background: #fff; padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-xs); margin-bottom: 24px; }
+    .analytics-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .analytics-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .kpi-card { background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; }
+    .kpi-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+    .kpi-value { font-size: 22px; font-weight: 900; color: var(--dark); }
+
+    .highlight-flash { animation: flashHighlight 2s ease-in-out; }
+    @keyframes flashHighlight {
+      0% { background-color: #fef08a; }
+      50% { background-color: #fef9c3; }
+      100% { background-color: transparent; }
+    }
+
+    @media (max-width: 1024px) {
+      .admin-app { grid-template-columns: 1fr; }
+      .admin-sidebar { height: auto; position: static; }
+      .stat-cards { grid-template-columns: repeat(2, 1fr); }
+      .analytics-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-app">
+    <!-- LEFT SIDEBAR -->
+    <aside class="admin-sidebar">
+      <a href="admin.html" class="admin-brand">
+        <div class="admin-brand-icon">📱</div>
+        <div>
+          <div class="admin-brand-text">NOVAPHONE</div>
+          <div class="admin-brand-sub">Hệ Thống Quản Trị Pro</div>
+        </div>
+      </a>
+
+      <div class="sidebar-menu">
+        <button id="btnTabProd" class="sidebar-item active" onclick="switchAdminTab('tabProducts')">
+          <span class="sidebar-item-icon">📱</span>
+          <span>Kho Điện Thoại</span>
+        </button>
+        <button id="btnTabOrd" class="sidebar-item" onclick="switchAdminTab('tabOrders')">
+          <span class="sidebar-item-icon">📦</span>
+          <span>Quản Lý Đơn Hàng</span>
+        </button>
+        <button id="btnTabAnalytics" class="sidebar-item" onclick="switchAdminTab('tabAnalytics')">
+          <span class="sidebar-item-icon">📊</span>
+          <span>Doanh Thu & Lợi Nhuận</span>
+        </button>
+        <button id="btnTabCat" class="sidebar-item" onclick="switchAdminTab('tabCategories')">
+          <span class="sidebar-item-icon">🏷️</span>
+          <span>Danh Mục Thương Hiệu</span>
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avatar">👤</div>
+          <div>
+            <div class="user-info-name" id="adminGreeting">Quản Trị Viên</div>
+            <div class="user-info-role">● Đang hoạt động</div>
+          </div>
+        </div>
+        <a href="index.html" class="btn-sidebar-store">
+          <span>🌐 Xem Cửa Hàng</span>
+        </a>
+        <button class="btn-sidebar-logout" onclick="handleAdminLogout()">
+          <span>🚪 Đăng Xuất</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT -->
+    <main class="admin-main">
+      <div class="admin-header-bar">
+        <div>
+          <h1 class="admin-title-head" id="adminPageHeaderTitle">Bảng Điều Khiển Quản Trị</h1>
+          <p class="admin-sub-head">Giám sát sản phẩm smartphone, đơn hàng và báo cáo tài chính thời gian thực</p>
+        </div>
+        <div id="tabActionBtns">
+          <button class="btn-checkout-start" style="width: auto; padding: 10px 20px; font-size: 13.5px;" onclick="openProductModal('create')">
+            + Thêm Smartphone Mới
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI METRICS SUMMARY -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Tổng Mẫu Máy Kho</span>
+            <div class="stat-icon-wrap">📱</div>
+          </div>
+          <div class="stat-num" id="statProducts">0</div>
+          <div class="stat-footer" style="color: #10b981;">
+            <span>✓ Đang mở bán hệ thống</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Máy Giữ Chờ Giao</span>
+            <div class="stat-icon-wrap">⏳</div>
+          </div>
+          <div class="stat-num" id="statReservedTotal" style="color: #d97706;">0</div>
+          <div class="stat-footer" style="color: #d97706;">
+            <span>● Đơn Pending, Confirmed, Shipping</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Đơn Hàng Ghi Nhận</span>
+            <div class="stat-icon-wrap">📦</div>
+          </div>
+          <div class="stat-num" id="statOrders">0</div>
+          <div class="stat-footer" style="color: #2563eb;">
+            <span>✓ Tổng lượt đặt mua</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Doanh Thu Thuần</span>
+            <div class="stat-icon-wrap">💰</div>
+          </div>
+          <div class="stat-num" id="statRevenue" style="color: #7c3aed;">0 đ</div>
+          <div class="stat-footer" style="color: #10b981;">
+            <span id="statProfitSummary">✓ Lợi nhuận gộp ước tính</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 1: QUẢN LÝ SẢN PHẨM SMARTPHONE -->
+      <!-- ========================================================================= -->
+      <div id="tabProducts">
+        <div class="admin-filter-bar">
+          <input type="text" id="adminProdSearch" class="admin-search-input" placeholder="Tìm theo tên máy, iPhone, Galaxy..." oninput="filterAdminProducts()">
+          <select id="adminProdCatFilter" class="form-select" style="width: 220px;" onchange="filterAdminProducts()">
+            <option value="">Tất cả thương hiệu</option>
+          </select>
+          <select id="adminProdStockFilter" class="form-select" style="width: 210px;" onchange="filterAdminProducts()">
+            <option value="">Tất cả mức tồn kho</option>
+            <option value="danger">🔴 Cần nhập gấp (Kho ≤ 10)</option>
+            <option value="warning">🟡 Theo dõi (11 - 25)</option>
+            <option value="success">🟢 Dồi dào (> 25)</option>
+          </select>
+          <span id="adminProdCount" style="font-size: 13px; color: var(--text-muted); margin-left: auto;">Đang tải...</span>
+        </div>
+
+        <!-- Chú thích mức cảnh báo tồn kho -->
+        <div style="display: flex; gap: 16px; margin-bottom: 14px; font-size: 12px; color: var(--text-muted); align-items: center;">
+          <span style="font-weight: 700;">Quy tắc kho:</span>
+          <span class="stock-pill stock-danger">🔴 Kho ≤ 10 máy: Cảnh báo nhập gấp</span>
+          <span class="stock-pill stock-warning">🟡 Kho 11 - 25: Theo dõi</span>
+          <span class="stock-pill stock-success">🟢 Kho > 25: Đủ hàng</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Hình ảnh</th>
+                <th>Tên điện thoại & Thương hiệu</th>
+                <th>Hãng / Danh mục</th>
+                <th>Giá nhập (Cost)</th>
+                <th>Giá niêm yết</th>
+                <th>Giá khuyến mãi</th>
+                <th>Tồn kho</th>
+                <th>Giữ đơn</th>
+                <th style="text-align: right;">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTable">
+              <tr><td colspan="9" style="text-align: center; padding: 30px;">Đang tải danh sách smartphone...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 2: QUẢN LÝ ĐƠN HÀNG -->
+      <!-- ========================================================================= -->
+      <div id="tabOrders" class="hidden">
+        <div class="admin-filter-bar">
+          <input type="text" id="adminOrderSearch" class="admin-search-input" placeholder="Tìm mã đơn hoặc tên khách..." oninput="filterAdminOrders()">
+          <select id="adminOrderStatusFilter" class="form-select" style="width: 200px;" onchange="filterAdminOrders()">
+            <option value="">Tất cả trạng thái</option>
+            <option value="PENDING">Chờ duyệt (PENDING)</option>
+            <option value="CONFIRMED">Đã xác nhận (CONFIRMED)</option>
+            <option value="PAID">Đã thanh toán (PAID)</option>
+            <option value="SHIPPING">Đang giao hàng (SHIPPING)</option>
+            <option value="COMPLETED">Hoàn tất (COMPLETED)</option>
+            <option value="CANCELLED">Đã hủy (CANCELLED)</option>
+          </select>
+          <span id="adminOrderCount" style="font-size: 13px; color: var(--text-muted); margin-left: auto;">Đang tải...</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Mã đơn</th>
+                <th>Thời gian</th>
+                <th>Khách hàng</th>
+                <th>Chi tiết máy đặt</th>
+                <th>Tổng thanh toán</th>
+                <th>Hình thức TT</th>
+                <th>Trạng thái</th>
+                <th>Cập nhật trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTable">
+              <tr><td colspan="8" style="text-align: center; padding: 30px;">Đang tải đơn hàng...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 3: BÁO CÁO DOANH THU & LỢI NHUẬN -->
+      <!-- ========================================================================= -->
+      <div id="tabAnalytics" class="hidden">
+        <div class="analytics-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--dark);">📊 Báo Cáo Hiệu Quả Kinh Doanh Smartphone</h3>
+              <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">
+                Doanh Thu Thuần = Tổng tiền thu khách - Phí vận chuyển | Lợi Nhuận Gộp = Doanh Thu Thuần - Giá Vốn
+              </p>
+            </div>
+          </div>
+
+          <!-- Bộ lọc thời gian -->
+          <div class="analytics-controls">
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Chu kỳ lọc:</label>
+              <select id="analyticsPeriodType" class="form-select" style="width: 170px;" onchange="handlePeriodTypeChange()">
+                <option value="all">Toàn bộ thời gian</option>
+                <option value="today">Hôm nay</option>
+                <option value="month">Theo Tháng</option>
+                <option value="quarter">Theo Quý (Q1-Q4)</option>
+                <option value="year">Theo Năm</option>
+                <option value="custom">Khoảng ngày tùy chọn</option>
+              </select>
+            </div>
+
+            <div id="filterMonthWrap" class="hidden">
+              <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Chọn Tháng:</label>
+              <input type="month" id="analyticsMonthInput" class="form-input" style="width: 160px;" onchange="calculateAnalytics()">
+            </div>
+
+            <div id="filterQuarterWrap" class="hidden" style="display: flex; gap: 8px;">
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Chọn Quý:</label>
+                <select id="analyticsQuarterSelect" class="form-select" style="width: 130px;" onchange="calculateAnalytics()">
+                  <option value="1">Quý 1 (T1 - T3)</option>
+                  <option value="2">Quý 2 (T4 - T6)</option>
+                  <option value="3">Quý 3 (T7 - T9)</option>
+                  <option value="4">Quý 4 (T10 - T12)</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Năm:</label>
+                <input type="number" id="analyticsQuarterYearInput" class="form-input" style="width: 90px;" value="2026" onchange="calculateAnalytics()">
+              </div>
+            </div>
+
+            <div id="filterYearWrap" class="hidden">
+              <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Chọn Năm:</label>
+              <input type="number" id="analyticsYearInput" class="form-input" style="width: 100px;" value="2026" onchange="calculateAnalytics()">
+            </div>
+
+            <div id="filterCustomWrap" class="hidden" style="display: flex; gap: 8px;">
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Từ ngày:</label>
+                <input type="date" id="analyticsDateFrom" class="form-input" style="width: 140px;" onchange="calculateAnalytics()">
+              </div>
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Đến ngày:</label>
+                <input type="date" id="analyticsDateTo" class="form-input" style="width: 140px;" onchange="calculateAnalytics()">
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 4px;">Tiêu chí đơn:</label>
+              <select id="analyticsOrderScope" class="form-select" style="width: 190px;" onchange="calculateAnalytics()">
+                <option value="delivered_paid">Đã thanh toán / Hoàn tất</option>
+                <option value="all_except_cancelled">Tất cả trừ đơn hủy</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- KPI Cards Báo Cáo -->
+          <div class="analytics-kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-title">Doanh Thu Thuần</div>
+              <div class="kpi-value" id="kpiNetRevenue" style="color:var(--primary);">0 đ</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Tổng Giá Vốn (COGS)</div>
+              <div class="kpi-value" id="kpiTotalCost" style="color:#d97706;">0 đ</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Lợi Nhuận Gộp</div>
+              <div class="kpi-value" id="kpiGrossProfit" style="color:#10b981;">0 đ</div>
+              <div id="kpiProfitMargin" style="font-size:12px; color:#10b981; font-weight:700; margin-top:4px;">Tỷ suất: 0%</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Sản Lượng Bán Ra</div>
+              <div class="kpi-value" id="kpiUnitsSold">0 máy</div>
+              <div id="kpiValidOrders" style="font-size:12px; color:var(--text-muted); margin-top:4px;">0 đơn hợp lệ</div>
+            </div>
+          </div>
+
+          <!-- Bảng Chi Tiết Đơn Thu / Chi -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Mã đơn</th>
+                  <th>Ngày tạo</th>
+                  <th>Khách hàng</th>
+                  <th>Số lượng máy</th>
+                  <th>Doanh thu SP</th>
+                  <th>Giá vốn SP</th>
+                  <th>Lợi nhuận gộp</th>
+                  <th>Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody id="analyticsOrdersTable">
+                <tr><td colspan="8" style="text-align:center; padding: 20px;">Chưa có dữ liệu tính toán. Hãy chọn chu kỳ lọc.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 4: QUẢN LÝ DANH MỤC & THƯƠNG HIỆU -->
+      <!-- ========================================================================= -->
+      <div id="tabCategories" class="hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div>
+            <h3 style="font-size: 18px; font-weight: 800; color: var(--dark);">Danh Mục Thương Hiệu Điện Thoại</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">Quản lý danh sách các hãng smartphone phân phối trên hệ thống</p>
+          </div>
+          <button class="btn-checkout-start" style="width: auto; padding: 9px 18px; font-size: 13px;" onclick="openCategoryModal()">
+            + Thêm Thương Hiệu Mới
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tên Thương Hiệu</th>
+                <th>Slug Đường Dẫn</th>
+                <th>Mô Tả Hãng</th>
+                <th style="text-align: right;">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="adminCategoriesTable">
+              <tr><td colspan="4" style="text-align: center; padding: 25px;">Đang tải thương hiệu...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: XEM CHI TIẾT SẢN PHẨM TRONG ĐƠN HÀNG -->
+  <div class="modal-overlay hidden" id="orderItemsModal">
+    <div class="modal-content" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 id="orderItemsModalTitle" style="font-size: 17px; font-weight: 800; color: var(--dark);">📦 Chi Tiết Sản Phẩm Đơn Hàng</h3>
+        <button class="btn-close" onclick="closeOrderItemsModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="orderItemsCustomerInfo" style="background:#f8fafc; padding:14px 18px; border-radius:var(--radius-md); margin-bottom:18px; font-size:13.5px; border:1px solid var(--border);"></div>
+
+        <table class="data-table" style="min-width: 100%;">
+          <thead>
+            <tr>
+              <th>Hình ảnh</th>
+              <th>Tên smartphone</th>
+              <th>Số lượng</th>
+              <th>Đơn giá</th>
+              <th>Thành tiền</th>
+              <th style="text-align: right;">Hành động</th>
+            </tr>
+          </thead>
+          <tbody id="orderItemsModalTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: THÊM / SỬA SMARTPHONE -->
+  <div class="modal-overlay hidden" id="productModal">
+    <div class="modal-content" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 id="productModalTitle" style="font-size: 17px; font-weight: 800; color: var(--dark);">+ Thêm Smartphone Mới</h3>
+        <button class="btn-close" onclick="closeProductModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm" onsubmit="handleProductFormSubmit(event)">
+          <input type="hidden" id="editProductId" value="">
+
+          <div class="form-group">
+            <label class="form-label">Tên điện thoại (*)</label>
+            <input type="text" name="name" id="prodNameInput" class="form-input" placeholder="Ví dụ: iPhone 16 Pro Max 256GB VN/A..." required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Thương hiệu / Danh mục (*)</label>
+              <select name="category" id="prodCategorySelect" class="form-select" required>
+                <option value="">-- Chọn danh mục --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hãng sản xuất (Brand)</label>
+              <input type="text" name="brand" id="prodBrandInput" class="form-input" placeholder="Apple, Samsung, Xiaomi, OPPO, Vivo, Realme...">
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Giá nhập kho (Cost) (*)</label>
+              <input type="number" name="costPrice" id="prodCostPriceInput" class="form-input" placeholder="Ví dụ: 25000000" required oninput="calcPricingLogic()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Giá niêm yết web (*)</label>
+              <input type="number" name="originalPrice" id="prodOrigPriceInput" class="form-input" placeholder="Giá gốc" required oninput="calcPricingLogic()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Giá khuyến mãi sale (*)</label>
+              <input type="number" name="salePrice" id="prodSalePriceInput" class="form-input" placeholder="Giá bán thực tế" required oninput="calcPricingLogic()">
+              <small id="salePercentNote" style="color:#ef4444; font-size:11px; font-weight:700;">Mức giảm: 0%</small>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Số lượng tồn kho (*)</label>
+              <input type="number" name="stock" id="prodStockInput" class="form-input" value="30" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Đánh giá sao (1.0 - 5.0)</label>
+              <input type="number" step="0.1" name="rating" id="prodRatingInput" class="form-input" value="5.0" min="1" max="5">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Link hình ảnh máy (URL)</label>
+            <input type="url" name="image" id="prodImageInput" class="form-input" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Thông số & Cấu hình điện thoại (RAM, Bộ nhớ, Chip, Pin, Màn hình, Camera)</label>
+            <textarea name="description" id="prodDescInput" class="form-input" rows="3" placeholder="RAM 8GB, Bộ nhớ 256GB, Chip A18 Pro / Snapdragon 8 Gen 3, Pin 5000 mAh..."></textarea>
+          </div>
+
+          <button type="submit" id="btnSaveProduct" class="btn-checkout-start">
+            Lưu Điện Thoại Vào Hệ Thống
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: THÊM DANH MỤC MỚI -->
+  <div class="modal-overlay hidden" id="categoryModal">
+    <div class="modal-content" style="max-width: 460px;">
+      <div class="modal-header">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--dark);">+ Thêm Thương Hiệu Mới</h3>
+        <button class="btn-close" onclick="closeCategoryModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="categoryForm" onsubmit="handleCategorySubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Tên thương hiệu (*)</label>
+            <input type="text" name="name" class="form-input" placeholder="Ví dụ: Google Pixel, ASUS ROG Phone..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mô tả ngắn</label>
+            <input type="text" name="description" class="form-input" placeholder="Mô tả về hãng điện thoại...">
+          </div>
+          <button type="submit" class="btn-checkout-start">
+            Tạo Thương Hiệu
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script>
+    let adminProducts = [];
+    let adminOrders = [];
+    let adminCategories = [];
+    let token = localStorage.getItem('LHU_TOKEN') || '';
+    let productReservedMap = {};
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!checkAdminPermission()) {
+        return;
+      }
+      loadAdminData();
+      initAnalyticsDefaults();
+    });
+
+    function checkAdminPermission() {
+      const user = JSON.parse(localStorage.getItem('LHU_USER') || 'null');
+      const greeting = document.getElementById('adminGreeting');
+
+      if (!user || user.role !== 'admin') {
+        document.body.innerHTML = `
+          <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:var(--font-sans); text-align:center; padding:20px; background:#f8fafc;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:40px 30px; border-radius:16px; box-shadow:0 10px 25px rgba(0,0,0,0.08); max-width:480px; width:100%;">
+              <span style="font-size:52px;">🔒</span>
+              <h2 style="font-size:22px; color:#b91c1c; margin:16px 0 8px; font-weight:800;">QUYỀN TRUY CẬP BỊ TỪ CHỐI!</h2>
+              <p style="font-size:14px; color:#64748b; line-height:1.6; margin-bottom:24px;">
+                Trang quản trị này chỉ dành riêng cho <strong>Quản Trị Viên (Admin)</strong> đã đăng nhập xác thực. Khách hàng không có quyền truy cập vào đây.
+              </p>
+              <button onclick="window.location.href='index.html'" style="background:#2563eb; color:#fff; border:none; padding:12px 24px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">
+                ← Quay Lại Cửa Hàng (Trang Chủ)
+              </button>
+            </div>
+          </div>
+        `;
+        return false;
+      }
+
+      if (greeting) {
+        greeting.innerText = `${user.name} (Admin)`;
+      }
+      return true;
+    }
+
+    function handleAdminLogout() {
+      localStorage.removeItem('LHU_USER');
+      localStorage.removeItem('LHU_TOKEN');
+      alert('Đã đăng xuất khỏi trang quản trị!');
+      window.location.href = 'index.html';
+    }
+
+    function switchAdminTab(tabId) {
+      document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+      document.getElementById('tabProducts').classList.add('hidden');
+      document.getElementById('tabOrders').classList.add('hidden');
+      document.getElementById('tabAnalytics').classList.add('hidden');
+      document.getElementById('tabCategories').classList.add('hidden');
+
+      const actionArea = document.getElementById('tabActionBtns');
+      const pageTitle = document.getElementById('adminPageHeaderTitle');
+
+      if (tabId === 'tabProducts') {
+        document.getElementById('btnTabProd').classList.add('active');
+        document.getElementById('tabProducts').classList.remove('hidden');
+        pageTitle.innerText = 'Quản Lý Kho Smartphone';
+        actionArea.innerHTML = `<button class="btn-checkout-start" style="width: auto; padding: 10px 20px; font-size: 13.5px;" onclick="openProductModal('create')">+ Thêm Smartphone Mới</button>`;
+      } else if (tabId === 'tabOrders') {
+        document.getElementById('btnTabOrd').classList.add('active');
+        document.getElementById('tabOrders').classList.remove('hidden');
+        pageTitle.innerText = 'Quản Lý Đơn Đặt Hàng';
+        actionArea.innerHTML = `<button class="btn-auth" onclick="loadOrdersData()">🔄 Làm Mới Đơn Hàng</button>`;
+      } else if (tabId === 'tabAnalytics') {
+        document.getElementById('btnTabAnalytics').classList.add('active');
+        document.getElementById('tabAnalytics').classList.remove('hidden');
+        pageTitle.innerText = 'Báo Cáo Doanh Thu & Lợi Nhuận';
+        actionArea.innerHTML = `<button class="btn-auth" onclick="calculateAnalytics()">📊 Cập Nhật Báo Cáo</button>`;
+        calculateAnalytics();
+      } else if (tabId === 'tabCategories') {
+        document.getElementById('btnTabCat').classList.add('active');
+        document.getElementById('tabCategories').classList.remove('hidden');
+        pageTitle.innerText = 'Danh Mục Thương Hiệu Điện Thoại';
+        actionArea.innerHTML = `<button class="btn-checkout-start" style="width: auto; padding: 10px 20px; font-size: 13.5px;" onclick="openCategoryModal()">+ Thêm Thương Hiệu</button>`;
+      }
+    }
+
+    function calcPricingLogic() {
+      const orig = Number(document.getElementById('prodOrigPriceInput').value) || 0;
+      const sale = Number(document.getElementById('prodSalePriceInput').value) || 0;
+      const note = document.getElementById('salePercentNote');
+      if (orig > 0 && sale > 0) {
+        const pct = Math.round(((orig - sale) / orig) * 100);
+        note.innerText = `Mức giảm: ${pct}% (Mục tiêu 10% - 35%)`;
+        note.style.color = (pct >= 5 && pct <= 40) ? '#10b981' : '#ef4444';
+      }
+    }
+
+    async function loadAdminData() {
+      await loadCategoriesData();
+      await loadOrdersData();
+      await loadProductsData();
+      calculateAnalytics();
+    }
+
+    async function loadCategoriesData() {
+      try {
+        const res = await API.getCategories();
+        if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+          adminCategories = res.data;
+        } else {
+          adminCategories = [
+            { _id: "cat_iphone", name: "Apple (iPhone)", slug: "iphone", description: "Điện thoại iPhone 16, 15, 14, 13 Series chính hãng VN/A" },
+            { _id: "cat_samsung", name: "Samsung Galaxy", slug: "samsung", description: "Điện thoại Samsung Galaxy S24 Ultra, Z Fold6, A Series" },
+            { _id: "cat_xiaomi", name: "Xiaomi", slug: "xiaomi", description: "Điện thoại Xiaomi 14 Series, Redmi Note, POCO hiệu năng cao" },
+            { _id: "cat_oppo", name: "OPPO", slug: "oppo", description: "Điện thoại OPPO Find X Series, Reno Series chụp ảnh chân dung" },
+            { _id: "cat_vivo", name: "Vivo", slug: "vivo", description: "Điện thoại Vivo X Series ống kính ZEISS, V Series, Y Series" },
+            { _id: "cat_realme", name: "Realme", slug: "realme", description: "Điện thoại Realme GT Series, 13 Series, C Series sạc siêu nhanh" }
+          ];
+        }
+      } catch (e) {
+        adminCategories = [];
+      }
+      renderAdminCategoriesTable();
+      populateCategorySelects();
+    }
+
+    function populateCategorySelects() {
+      const selModal = document.getElementById('prodCategorySelect');
+      const selFilter = document.getElementById('adminProdCatFilter');
+      if (selModal) {
+        selModal.innerHTML = '<option value="">-- Chọn danh mục --</option>' + 
+          adminCategories.map(c => `<option value="${c._id}">${c.name}</option>`).join('');
+      }
+      if (selFilter) {
+        selFilter.innerHTML = '<option value="">Tất cả thương hiệu</option>' + 
+          adminCategories.map(c => `<option value="${c._id}">${c.name}</option>`).join('');
+      }
+    }
+
+    function renderAdminCategoriesTable() {
+      const tbody = document.getElementById('adminCategoriesTable');
+      if (!tbody) return;
+      tbody.innerHTML = adminCategories.map(c => `
+        <tr>
+          <td><strong>${c.name}</strong></td>
+          <td><code style="background:#f1f5f9; padding:3px 8px; border-radius:6px; font-size:12px; font-weight:600;">${c.slug || '-'}</code></td>
+          <td>${c.description || 'Chưa có mô tả'}</td>
+          <td style="text-align: right;">
+            <button class="btn-tbl btn-tbl-del" onclick="handleDeleteCategory('${c._id}')">🗑️ Xóa</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function loadOrdersData() {
+      try {
+        const res = await API.getOrders(token);
+        if (res && res.success && Array.isArray(res.data)) {
+          adminOrders = res.data;
+        } else {
+          adminOrders = [
+            {
+              _id: "ord_2026_01",
+              orderCode: "DH84920194",
+              createdAt: "2026-11-10T09:30:00Z",
+              customerName: "Nguyễn Văn Hiếu",
+              customerPhone: "0966106874",
+              shippingFee: 25000,
+              totalAmount: 33515000,
+              paymentMethod: "VIETQR",
+              orderStatus: "PAID",
+              items: [
+                { productId: "phone_apple_01", name: "iPhone 16 Pro Max 256GB - Chính Hãng VN/A", quantity: 1, price: 33490000 }
+              ]
+            },
+            {
+              _id: "ord_2026_02",
+              orderCode: "DH84920195",
+              createdAt: "2026-11-11T08:15:00Z",
+              customerName: "Trần Minh Quang",
+              customerPhone: "0908123456",
+              shippingFee: 25000,
+              totalAmount: 8815000,
+              paymentMethod: "COD",
+              orderStatus: "SHIPPING",
+              items: [
+                { productId: "phone_samsung_05", name: "Samsung Galaxy A55 5G 8GB/128GB", quantity: 1, price: 8790000 }
+              ]
+            },
+            {
+              _id: "ord_2026_03",
+              orderCode: "DH84920196",
+              createdAt: "2026-10-15T14:20:00Z",
+              customerName: "Lê Hoàng Yến",
+              customerPhone: "0912345678",
+              shippingFee: 25000,
+              totalAmount: 28015000,
+              paymentMethod: "MOMO_QR",
+              orderStatus: "COMPLETED",
+              items: [
+                { productId: "phone_xiaomi_01", name: "Xiaomi 14 Ultra 5G 16GB/512GB (Leica)", quantity: 1, price: 27990000 }
+              ]
+            },
+            {
+              _id: "ord_2026_04",
+              orderCode: "DH84920197",
+              createdAt: "2026-11-11T10:05:00Z",
+              customerName: "Phạm Quốc Tuấn",
+              customerPhone: "0977889900",
+              shippingFee: 25000,
+              totalAmount: 15515000,
+              paymentMethod: "COD",
+              orderStatus: "PENDING",
+              items: [
+                { productId: "phone_realme_01", name: "Realme GT 6 5G 16GB/512GB", quantity: 1, price: 15490000 }
+              ]
+            }
+          ];
+        }
+      } catch (e) {
+        adminOrders = [];
+      }
+
+      productReservedMap = {};
+      let totalReservedCount = 0;
+
+      adminOrders.forEach(order => {
+        if (['PENDING', 'CONFIRMED', 'SHIPPING'].includes(order.orderStatus) && Array.isArray(order.items)) {
+          order.items.forEach(item => {
+            const pId = item.productId ? (item.productId._id || item.productId) : null;
+            const pName = item.name;
+            const qty = Number(item.quantity) || 1;
+            totalReservedCount += qty;
+
+            if (pId) {
+              productReservedMap[pId] = (productReservedMap[pId] || 0) + qty;
+            }
+            if (pName) {
+              productReservedMap[pName] = (productReservedMap[pName] || 0) + qty;
+            }
+          });
+        }
+      });
+
+      document.getElementById('statOrders').innerText = adminOrders.length;
+      document.getElementById('statReservedTotal').innerText = `${totalReservedCount} máy`;
+
+      filterAdminOrders();
+    }
+
+    function filterAdminOrders() {
+      const search = (document.getElementById('adminOrderSearch')?.value || '').toLowerCase().trim();
+      const status = document.getElementById('adminOrderStatusFilter')?.value || '';
+
+      const filtered = adminOrders.filter(o => {
+        const matchCode = (o.orderCode || '').toLowerCase().includes(search) || (o.customerName || '').toLowerCase().includes(search);
+        const matchStatus = !status || o.orderStatus === status;
+        return matchCode && matchStatus;
+      });
+
+      document.getElementById('adminOrderCount').innerText = `Hiển thị ${filtered.length} / ${adminOrders.length} đơn hàng`;
+      renderAdminOrdersTable(filtered);
+    }
+
+    function renderAdminOrdersTable(list) {
+      const tbody = document.getElementById('adminOrdersTable');
+      if (!tbody) return;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:25px;">Chưa có đơn hàng nào phù hợp!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(o => {
+        const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleString('vi-VN') : 'Mới tạo';
+        const itemCount = Array.isArray(o.items) ? o.items.reduce((s, i) => s + (Number(i.quantity) || 1), 0) : 0;
+
+        return `
+          <tr>
+            <td><strong style="color:var(--primary);">#${o.orderCode || (o._id ? o._id.slice(-6).toUpperCase() : 'DH')}</strong></td>
+            <td style="font-size:12px; color:var(--text-muted);">${dateStr}</td>
+            <td>
+              <strong>${o.customerName}</strong>
+              <div style="font-size:12px; color:var(--text-muted);">${o.customerPhone}</div>
+            </td>
+            <td>
+              <button class="btn-tbl btn-tbl-view" onclick="viewOrderProducts('${o._id}')" title="Xem chi tiết máy đặt">
+                📦 Xem ${itemCount} máy →
+              </button>
+            </td>
+            <td><strong style="color:var(--dark); font-size:14px;">${Number(o.totalAmount).toLocaleString('vi-VN')} đ</strong></td>
+            <td><span style="font-size:11px; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:4px;">${o.paymentMethod}</span></td>
+            <td><span class="badge-status status-${o.orderStatus}">${o.orderStatus}</span></td>
+            <td>
+              <select onchange="handleUpdateOrderStatus('${o._id}', this.value)" style="padding:6px 10px; border-radius:6px; font-size:12px; border:1px solid #cbd5e1; outline:none; background:#fff;">
+                <option value="PENDING" ${o.orderStatus==='PENDING'?'selected':''}>Chờ duyệt (PENDING)</option>
+                <option value="CONFIRMED" ${o.orderStatus==='CONFIRMED'?'selected':''}>Đã xác nhận (CONFIRMED)</option>
+                <option value="PAID" ${o.orderStatus==='PAID'?'selected':''}>Đã thanh toán (PAID)</option>
+                <option value="SHIPPING" ${o.orderStatus==='SHIPPING'?'selected':''}>Đang giao hàng (SHIPPING)</option>
+                <option value="COMPLETED" ${o.orderStatus==='COMPLETED'?'selected':''}>Hoàn tất (COMPLETED)</option>
+                <option value="CANCELLED" ${o.orderStatus==='CANCELLED'?'selected':''}>Hủy đơn (CANCELLED)</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function handleUpdateOrderStatus(id, newStatus) {
+      const order = adminOrders.find(o => o._id === id);
+      if (order) order.orderStatus = newStatus;
+      await API.updateOrderStatus(id, newStatus, token);
+      alert('Đã cập nhật trạng thái đơn hàng thành công!');
+      loadOrdersData();
+      loadProductsData();
+    }
+
+    function viewOrderProducts(orderId) {
+      const order = adminOrders.find(o => o._id === orderId);
+      if (!order) return;
+
+      const modal = document.getElementById('orderItemsModal');
+      const title = document.getElementById('orderItemsModalTitle');
+      const custInfo = document.getElementById('orderItemsCustomerInfo');
+      const tbody = document.getElementById('orderItemsModalTable');
+
+      title.innerHTML = `📦 Chi Tiết Đơn Hàng <span style="color:var(--primary);">#${order.orderCode}</span>`;
+      custInfo.innerHTML = `
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <div><strong>Khách hàng:</strong> ${order.customerName} (${order.customerPhone})</div>
+          <div><strong>Trạng thái:</strong> <span class="badge-status status-${order.orderStatus}">${order.orderStatus}</span></div>
+          <div><strong>Địa chỉ:</strong> ${order.shippingAddress || 'Chưa cung cấp'}</div>
+          <div><strong>Tổng thanh toán:</strong> <strong style="color:var(--primary);">${Number(order.totalAmount).toLocaleString('vi-VN')} đ</strong> (Phí ship: ${(order.shippingFee || 25000).toLocaleString('vi-VN')} đ)</div>
+        </div>
+      `;
+
+      if (!order.items || order.items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:20px;">Đơn hàng này không có dữ liệu chi tiết.</td></tr>`;
+      } else {
+        tbody.innerHTML = order.items.map(item => {
+          const pId = item.productId ? (item.productId._id || item.productId) : null;
+          const matchedProd = adminProducts.find(p => p._id === pId || p.name === item.name);
+          const imgUrl = matchedProd?.image || 'https://via.placeholder.com/50';
+          const lineTotal = (item.price || 0) * (item.quantity || 1);
+
+          return `
+            <tr>
+              <td><img src="${imgUrl}" style="width:44px; height:44px; object-fit:contain; border-radius:6px; background:#f8fafc; border:1px solid #e2e8f0;"></td>
+              <td><strong style="color:var(--dark);">${item.name}</strong></td>
+              <td><span style="font-weight:700; color:var(--primary);">${item.quantity}</span> máy</td>
+              <td>${Number(item.price).toLocaleString('vi-VN')} đ</td>
+              <td><strong style="color:var(--dark);">${Number(lineTotal).toLocaleString('vi-VN')} đ</strong></td>
+              <td style="text-align: right;">
+                <button class="btn-tbl btn-tbl-edit" onclick="navigateToProduct('${pId}', '${escapeQuotes(item.name)}')">
+                  🔍 Xem tại Kho →
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeOrderItemsModal() {
+      const modal = document.getElementById('orderItemsModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function navigateToProduct(productId, productName) {
+      closeOrderItemsModal();
+      switchAdminTab('tabProducts');
+
+      const searchInput = document.getElementById('adminProdSearch');
+      if (searchInput) {
+        searchInput.value = productName;
+        filterAdminProducts();
+      }
+
+      setTimeout(() => {
+        const rows = document.querySelectorAll('#adminProductsTable tr');
+        rows.forEach(r => {
+          if (r.innerText.includes(productName)) {
+            r.classList.add('highlight-flash');
+            r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => r.classList.remove('highlight-flash'), 2500);
+          }
+        });
+      }, 200);
+    }
+
+    async function loadProductsData() {
+      try {
+        const res = await API.getProducts();
+        if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+          adminProducts = res.data;
+        } else {
+          adminProducts = [];
+        }
+      } catch (e) {
+        adminProducts = [];
+      }
+
+      adminProducts.forEach(p => {
+        if (!p.costPrice) {
+          const orig = Number(p.originalPrice) || 0;
+          p.costPrice = Math.max(1000000, orig - 3500000);
+        }
+      });
+
+      document.getElementById('statProducts').innerText = adminProducts.length;
+      filterAdminProducts();
+    }
+
+    function filterAdminProducts() {
+      const search = (document.getElementById('adminProdSearch').value || '').toLowerCase().trim();
+      const cat = document.getElementById('adminProdCatFilter').value;
+      const stockFilter = document.getElementById('adminProdStockFilter').value;
+
+      const filtered = adminProducts.filter(p => {
+        const matchName = (p.name || '').toLowerCase().includes(search) || (p.brand || '').toLowerCase().includes(search);
+        const pCatId = p.category ? (p.category._id || p.category) : '';
+        const matchCat = !cat || pCatId === cat;
+
+        const stock = Number(p.stock) || 0;
+        let matchStock = true;
+        if (stockFilter === 'danger') matchStock = (stock <= 10);
+        else if (stockFilter === 'warning') matchStock = (stock > 10 && stock <= 25);
+        else if (stockFilter === 'success') matchStock = (stock > 25);
+
+        return matchName && matchCat && matchStock;
+      });
+
+      document.getElementById('adminProdCount').innerText = `Hiển thị ${filtered.length} / ${adminProducts.length} máy`;
+      renderAdminProductsTable(filtered);
+    }
+
+    function renderAdminProductsTable(list) {
+      const tbody = document.getElementById('adminProductsTable');
+      if (!tbody) return;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:25px;">Không tìm thấy smartphone nào phù hợp!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(p => {
+        const catName = p.category ? (p.category.name || p.category) : '-';
+        const cost = Number(p.costPrice) || 0;
+        const orig = Number(p.originalPrice) || 0;
+        const sale = Number(p.salePrice) || orig;
+        const stock = Number(p.stock) || 0;
+        const reserved = productReservedMap[p._id] || productReservedMap[p.name] || 0;
+
+        let stockBadge = '';
+        if (stock <= 10) {
+          stockBadge = `<span class="stock-pill stock-danger">🔴 Còn ${stock} máy</span>`;
+        } else if (stock <= 25) {
+          stockBadge = `<span class="stock-pill stock-warning">🟡 Còn ${stock} máy</span>`;
+        } else {
+          stockBadge = `<span class="stock-pill stock-success">🟢 Còn ${stock} máy</span>`;
+        }
+
+        return `
+          <tr id="row_prod_${p._id}">
+            <td>
+              <img src="${p.image || 'https://via.placeholder.com/50'}" style="width:48px; height:48px; object-fit:contain; border-radius:6px; background:#f8fafc; border:1px solid #e2e8f0;">
+            </td>
+            <td>
+              <strong style="color:var(--dark); font-size:13.5px;">${p.name}</strong>
+              <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">Hãng: <strong>${p.brand || 'Chính hãng'}</strong> | Đánh giá: ⭐ ${p.rating ? Number(p.rating).toFixed(1) : '5.0'}</div>
+            </td>
+            <td><span style="font-size:12.5px; font-weight:700; color:var(--primary);">${catName}</span></td>
+            <td><strong style="color:#d97706;">${cost.toLocaleString('vi-VN')} đ</strong></td>
+            <td><span style="color:#94a3b8; font-weight:600; text-decoration:line-through;">${orig.toLocaleString('vi-VN')} đ</span></td>
+            <td><strong style="color:var(--dark); font-size:14px;">${sale.toLocaleString('vi-VN')} đ</strong></td>
+            <td>${stockBadge}</td>
+            <td>
+              <span class="reserved-pill" title="Số lượng nằm trong các đơn PENDING, CONFIRMED, SHIPPING">
+                ⏳ Giữ: <strong>${reserved}</strong> máy
+              </span>
+            </td>
+            <td style="text-align: right;">
+              <div class="btn-action-group" style="justify-content: flex-end;">
+                <button class="btn-tbl btn-tbl-edit" onclick="openProductModal('edit', '${p._id}')">✏️ Sửa</button>
+                <button class="btn-tbl btn-tbl-del" onclick="handleDeleteProduct('${p._id}')">🗑️ Xóa</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openProductModal(mode, id = null) {
+      const modal = document.getElementById('productModal');
+      const title = document.getElementById('productModalTitle');
+      const editIdInput = document.getElementById('editProductId');
+      const form = document.getElementById('productForm');
+
+      form.reset();
+      editIdInput.value = '';
+
+      if (mode === 'edit' && id) {
+        title.innerText = '✏️ Chỉnh Sửa Thông Tin Smartphone';
+        const p = adminProducts.find(item => item._id === id);
+        if (p) {
+          editIdInput.value = p._id;
+          document.getElementById('prodNameInput').value = p.name;
+          document.getElementById('prodCategorySelect').value = p.category ? (p.category._id || p.category) : '';
+          document.getElementById('prodBrandInput').value = p.brand || '';
+          document.getElementById('prodCostPriceInput').value = p.costPrice || (p.originalPrice - 3000000);
+          document.getElementById('prodOrigPriceInput').value = p.originalPrice;
+          document.getElementById('prodSalePriceInput').value = p.salePrice;
+          document.getElementById('prodStockInput').value = p.stock;
+          document.getElementById('prodRatingInput').value = p.rating || 5.0;
+          document.getElementById('prodImageInput').value = p.image || '';
+          document.getElementById('prodDescInput').value = p.description || '';
+          calcPricingLogic();
+        }
+      } else {
+        title.innerText = '+ Thêm Smartphone Mới Vào Hệ Thống';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    async function handleProductFormSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const editId = document.getElementById('editProductId').value;
+
+      const productData = {
+        name: form.name.value.trim(),
+        category: form.category.value || "cat_iphone",
+        brand: form.brand.value.trim() || 'Apple',
+        costPrice: Number(form.costPrice.value),
+        originalPrice: Number(form.originalPrice.value),
+        salePrice: Number(form.salePrice.value),
+        stock: Number(form.stock.value),
+        rating: Number(form.rating.value) || 5.0,
+        image: form.image.value.trim() || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500',
+        description: form.description.value.trim()
+      };
+
+      if (editId) {
+        await API.updateProduct(editId, productData, token);
+        const idx = adminProducts.findIndex(p => p._id === editId);
+        if (idx !== -1) {
+          adminProducts[idx] = { ...adminProducts[idx], ...productData };
+        }
+        alert('✓ Đã cập nhật smartphone thành công!');
+      } else {
+        const res = await API.createProduct(productData, token);
+        if (res && res.success && res.data) {
+          adminProducts.unshift(res.data);
+        } else {
+          productData._id = 'phone_' + Date.now();
+          adminProducts.unshift(productData);
+        }
+        alert('✓ Thêm smartphone mới thành công!');
+      }
+
+      closeProductModal();
+      document.getElementById('statProducts').innerText = adminProducts.length;
+      filterAdminProducts();
+      calculateAnalytics();
+    }
+
+    async function handleDeleteProduct(id) {
+      if (!confirm('Bạn có chắc chắn muốn xóa smartphone này khỏi hệ thống kho?')) return;
+      await API.deleteProduct(id, token);
+      adminProducts = adminProducts.filter(p => p._id !== id);
+      document.getElementById('statProducts').innerText = adminProducts.length;
+      alert('Đã xóa smartphone thành công.');
+      filterAdminProducts();
+      calculateAnalytics();
+    }
+
+    function initAnalyticsDefaults() {
+      const now = new Date();
+      const monthInput = document.getElementById('analyticsMonthInput');
+      if (monthInput) {
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        monthInput.value = `${y}-${m}`;
+      }
+      const dateTo = document.getElementById('analyticsDateTo');
+      const dateFrom = document.getElementById('analyticsDateFrom');
+      if (dateTo && dateFrom) {
+        dateTo.value = now.toISOString().slice(0, 10);
+        const past = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        dateFrom.value = past.toISOString().slice(0, 10);
+      }
+    }
+
+    function handlePeriodTypeChange() {
+      const type = document.getElementById('analyticsPeriodType').value;
+      document.getElementById('filterMonthWrap').classList.add('hidden');
+      document.getElementById('filterQuarterWrap').classList.add('hidden');
+      document.getElementById('filterYearWrap').classList.add('hidden');
+      document.getElementById('filterCustomWrap').classList.add('hidden');
+
+      if (type === 'month') {
+        document.getElementById('filterMonthWrap').classList.remove('hidden');
+      } else if (type === 'quarter') {
+        document.getElementById('filterQuarterWrap').classList.remove('hidden');
+      } else if (type === 'year') {
+        document.getElementById('filterYearWrap').classList.remove('hidden');
+      } else if (type === 'custom') {
+        document.getElementById('filterCustomWrap').classList.remove('hidden');
+      }
+      calculateAnalytics();
+    }
+
+    function calculateAnalytics() {
+      const periodType = document.getElementById('analyticsPeriodType')?.value || 'all';
+      const orderScope = document.getElementById('analyticsOrderScope')?.value || 'delivered_paid';
+
+      let qualifiedOrders = adminOrders.filter(o => {
+        if (orderScope === 'delivered_paid') {
+          return o.orderStatus === 'PAID' || o.orderStatus === 'COMPLETED';
+        } else {
+          return o.orderStatus !== 'CANCELLED';
+        }
+      });
+
+      const now = new Date();
+      qualifiedOrders = qualifiedOrders.filter(o => {
+        const orderDate = o.createdAt ? new Date(o.createdAt) : now;
+
+        if (periodType === 'all') return true;
+        if (periodType === 'today') {
+          return orderDate.toDateString() === now.toDateString();
+        }
+        if (periodType === 'month') {
+          const mVal = document.getElementById('analyticsMonthInput').value;
+          if (!mVal) return true;
+          const [y, m] = mVal.split('-').map(Number);
+          return orderDate.getFullYear() === y && (orderDate.getMonth() + 1) === m;
+        }
+        if (periodType === 'quarter') {
+          const q = Number(document.getElementById('analyticsQuarterSelect').value) || 1;
+          const y = Number(document.getElementById('analyticsQuarterYearInput').value) || 2026;
+          const m = orderDate.getMonth() + 1;
+          const orderQ = Math.ceil(m / 3);
+          return orderDate.getFullYear() === y && orderQ === q;
+        }
+        if (periodType === 'year') {
+          const y = Number(document.getElementById('analyticsYearInput').value) || 2026;
+          return orderDate.getFullYear() === y;
+        }
+        if (periodType === 'custom') {
+          const fromVal = document.getElementById('analyticsDateFrom').value;
+          const toVal = document.getElementById('analyticsDateTo').value;
+          if (fromVal && new Date(fromVal) > orderDate) return false;
+          if (toVal) {
+            const endOfDay = new Date(toVal);
+            endOfDay.setHours(23, 59, 59, 999);
+            if (orderDate > endOfDay) return false;
+          }
+          return true;
+        }
+        return true;
+      });
+
+      let totalNetRevenue = 0;
+      let totalCostOfGoods = 0;
+      let totalUnitsSold = 0;
+      const reportRows = [];
+
+      qualifiedOrders.forEach(o => {
+        let orderProductRevenue = 0;
+        let orderCost = 0;
+        let orderUnits = 0;
+
+        if (Array.isArray(o.items) && o.items.length > 0) {
+          o.items.forEach(item => {
+            const qty = Number(item.quantity) || 1;
+            const price = Number(item.price) || 0;
+            orderUnits += qty;
+            orderProductRevenue += (price * qty);
+
+            const pId = item.productId ? (item.productId._id || item.productId) : null;
+            const matched = adminProducts.find(p => p._id === pId || p.name === item.name);
+            const costPerUnit = matched ? (Number(matched.costPrice) || Math.max(0, price - 3000000)) : (price * 0.75);
+            orderCost += (costPerUnit * qty);
+          });
+        } else {
+          const shipFee = o.shippingFee !== undefined ? Number(o.shippingFee) : 25000;
+          orderProductRevenue = Math.max(0, (o.totalAmount || 0) - shipFee);
+          orderCost = orderProductRevenue * 0.78;
+          orderUnits = 1;
+        }
+
+        const orderGrossProfit = orderProductRevenue - orderCost;
+        totalNetRevenue += orderProductRevenue;
+        totalCostOfGoods += orderCost;
+        totalUnitsSold += orderUnits;
+
+        reportRows.push({
+          orderCode: o.orderCode || o._id.slice(-6).toUpperCase(),
+          date: o.createdAt ? new Date(o.createdAt).toLocaleDateString('vi-VN') : 'Mới',
+          customerName: o.customerName,
+          orderUnits,
+          orderProductRevenue,
+          orderCost,
+          orderGrossProfit,
+          orderStatus: o.orderStatus
+        });
+      });
+
+      const totalGrossProfit = totalNetRevenue - totalCostOfGoods;
+      const profitMarginPct = totalNetRevenue > 0 ? ((totalGrossProfit / totalNetRevenue) * 100).toFixed(1) : 0;
+
+      document.getElementById('kpiNetRevenue').innerText = `${totalNetRevenue.toLocaleString('vi-VN')} đ`;
+      document.getElementById('kpiTotalCost').innerText = `${totalCostOfGoods.toLocaleString('vi-VN')} đ`;
+      document.getElementById('kpiGrossProfit').innerText = `${totalGrossProfit.toLocaleString('vi-VN')} đ`;
+      document.getElementById('kpiProfitMargin').innerText = `Tỷ suất lợi nhuận: ${profitMarginPct}%`;
+      document.getElementById('kpiUnitsSold').innerText = `${totalUnitsSold} máy`;
+      document.getElementById('kpiValidOrders').innerText = `Từ ${qualifiedOrders.length} đơn hợp lệ`;
+
+      document.getElementById('statRevenue').innerText = `${totalNetRevenue.toLocaleString('vi-VN')} đ`;
+      document.getElementById('statProfitSummary').innerText = `✓ Lãi gộp: ${totalGrossProfit.toLocaleString('vi-VN')} đ (${profitMarginPct}%)`;
+
+      renderAnalyticsOrdersTable(reportRows);
+    }
+
+    function renderAnalyticsOrdersTable(rows) {
+      const tbody = document.getElementById('analyticsOrdersTable');
+      if (!tbody) return;
+
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:25px; color:var(--text-muted);">Không có đơn hàng nào trong chu kỳ lọc đã chọn!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td><strong style="color:var(--primary);">#${r.orderCode}</strong></td>
+          <td>${r.date}</td>
+          <td>${r.customerName}</td>
+          <td><strong>${r.orderUnits}</strong> máy</td>
+          <td>${Number(r.orderProductRevenue).toLocaleString('vi-VN')} đ</td>
+          <td style="color:#d97706;">${Number(r.orderCost).toLocaleString('vi-VN')} đ</td>
+          <td><strong style="color:#10b981;">+${Number(r.orderGrossProfit).toLocaleString('vi-VN')} đ</strong></td>
+          <td><span class="badge-status status-${r.orderStatus}">${r.orderStatus}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function openCategoryModal() {
+      document.getElementById('categoryModal').classList.remove('hidden');
+    }
+    function closeCategoryModal() {
+      document.getElementById('categoryModal').classList.add('hidden');
+    }
+    async function handleCategorySubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value.trim();
+      const description = form.description.value.trim();
+      const catData = { name, description, slug: name.toLowerCase().replace(/\s+/g, '-') };
+
+      const res = await API.createCategory(catData);
+      if (res && res.success && res.data) {
+        adminCategories.push(res.data);
+      } else {
+        catData._id = 'cat_' + Date.now();
+        adminCategories.push(catData);
+      }
+      alert('Tạo thương hiệu mới thành công!');
+      form.reset();
+      closeCategoryModal();
+      renderAdminCategoriesTable();
+      populateCategorySelects();
+    }
+
+    async function handleDeleteCategory(id) {
+      if (!confirm('Bạn có chắc muốn xóa thương hiệu này?')) return;
+      await API.deleteCategory(id);
+      adminCategories = adminCategories.filter(c => c._id !== id);
+      renderAdminCategoriesTable();
+      populateCategorySelects();
+    }
+
+    function escapeQuotes(str) {
+      if (!str) return '';
+      return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
